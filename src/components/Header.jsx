@@ -19,7 +19,7 @@ function Header() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="absolute left-1/2 top-5 -translate-x-1/2 w-[90%] bg-accent text-darkbg rounded-2xl border shadow-md flex justify-between items-center px-6 py-3 z-50 transition-all duration-300">
+    <header className="fixed left-1/2 top-5 -translate-x-1/2 w-[90%] bg-accent text-darkbg rounded-2xl border shadow-md flex justify-between items-center px-6 py-3 z-50 transition-all duration-300">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img
@@ -36,7 +36,7 @@ function Header() {
             <a
               key={item}
               href="#"
-              className="relative px-2 text-darkbg transition-all duration-300
+              className="relative px-2 text-darkbg transition-all duration-300 font-bold
                 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-bright
                 hover:after:w-full after:transition-all after:duration-300 "
             >

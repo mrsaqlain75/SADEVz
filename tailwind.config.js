@@ -10,6 +10,7 @@ export default {
         bright: '#00bcd4',
         accent: '#e6f9ff',
         darkbg: '#2f2d25',
+        bluebg: '#061018'
       },
       fontFamily: {
         mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
