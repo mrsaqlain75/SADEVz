@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function PixelHero({ headerOffset = 64 }) {
+export default function PixelHero({ headerOffset = 56 }) {
   const containerRef = useRef(null);
   const pointerRef = useRef({ x: 0.5, y: 0.5 });
   const canvasRef = useRef(null);
@@ -15,7 +15,7 @@ export default function PixelHero({ headerOffset = 64 }) {
 
   const COLORS = {
     bright: "#00bcd4",
-    accent: "#e6f9ff",
+    accent: "#efefef",
     bluebg: "#061018", // terminal blue background
     panelGlow: "#00bcd4",
     button: "#00bcd4",
@@ -217,8 +217,9 @@ export default function PixelHero({ headerOffset = 64 }) {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
-      style={{ paddingTop: `${headerOffset}px`, background: COLORS.bluebg }}
+      className="relative w-full min-h-[90vh] md:min-h-screen overflow-hidden flex justify-center"
+      style={{ paddingTop: '56px', background: COLORS.bluebg }} // mobile default
+
     >
       {/* Animated gradient overlay */}
       <div
@@ -265,7 +266,7 @@ export default function PixelHero({ headerOffset = 64 }) {
           whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
           transition={{ type: "spring", stiffness: 200, damping: 22 }}
         >
-          <div className="flex flex-col items-start">
+          <div className=" flex flex-col items-start">
             <AnimatePresence mode="wait">
               <motion.h2
                 key={services[currentService]}

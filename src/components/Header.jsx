@@ -4,7 +4,7 @@ import logo from "../assets/logo.png";
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // ✅ Close mobile menu when switching to desktop
+  
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -19,7 +19,18 @@ function Header() {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
-    <header className="fixed left-1/2 top-5 -translate-x-1/2 w-[90%] bg-accent text-darkbg rounded-2xl border shadow-md flex justify-between items-center px-6 py-3 z-50 transition-all duration-300">
+    <header className="
+    fixed left-1/2 top-5 -translate-x-1/2 w-[90%]
+    rounded-2xl
+    px-6 py-3 z-[999]
+    flex justify-between items-center
+    transition-all duration-300
+
+    /* Solid background + strong separation */
+    bg-light
+    border border-gray-300
+    shadow-[0_10px_40px_rgba(0,0,0,0.25)]
+  ">
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img
@@ -36,7 +47,7 @@ function Header() {
             <a
               key={item}
               href="#"
-              className="relative px-2 text-darkbg transition-all duration-300 font-bold
+              className="relative px-2 text-bluebg transition-all duration-300 font-bold
                 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-bright
                 hover:after:w-full after:transition-all after:duration-300 "
             >
@@ -56,7 +67,7 @@ function Header() {
 
       {/* Mobile Navbar */}
       <div
-        className={`absolute left-0 top-16 w-full bg-accent rounded-b-2xl shadow-md flex flex-col items-center gap-4 py-6 font-semibold text-darkbg transition-all duration-500 ease-in-out ${
+        className={`absolute left-0 top-16 w-full bg-light rounded-b-2xl shadow-md flex flex-col items-center gap-4 py-6 font-semibold text-darkbg transition-all duration-500 ease-in-out ${
           isOpen ? "opacity-100 scale-y-100 visible" : "opacity-0 scale-y-0 invisible"
         }`}
         style={{ transformOrigin: "top" }}
