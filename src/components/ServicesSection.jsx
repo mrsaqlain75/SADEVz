@@ -32,11 +32,11 @@ const services = [
 const ServicesSection = () => {
   return (
     <section className="relative bg-[#061018] text-[#efefef] py-20 md:py-28 overflow-hidden">
-      {/* Center wrapper like header */}
+      {/* centered layout like header */}
       <div className="relative left-1/2 -translate-x-1/2 w-[90%]">
 
-        {/* gradient accent background */}
-        <div className="absolute inset-0  pointer-events-none"></div>
+        {/* subtle gradient overlay */}
+        <div className="absolute inset-0 pointer-events-none"></div>
 
         {/* section header */}
         <div className="text-center mb-16 md:mb-20 relative z-10">
@@ -63,25 +63,24 @@ const ServicesSection = () => {
               viewport={{ once: true }}
               className="relative z-10 flex flex-col items-center md:items-start text-center md:text-left"
             >
-              {/* connector dot ABOVE the box */}
+              {/* connector dot ABOVE box */}
               <div className="relative mb-6 flex justify-center w-full">
                 <div className="w-5 h-5 rounded-full bg-[#00bcd4] shadow-[0_0_15px_#00bcd4]"></div>
-                {/* small glowing line down to box */}
                 <div className="absolute top-5 left-1/2 -translate-x-1/2 w-[2px] h-6 bg-[#00bcd4]/50 blur-[0.5px]"></div>
               </div>
 
-              {/* service box */}
-              <div className="w-full flex flex-col justify-between bg-[#0d1f2a] border border-[#00bcd4]/20 rounded-2xl p-8 min-h-[300px]
+              {/* service box with new contrast color */}
+              <div className="w-full flex flex-col justify-between bg-[#102a3a] border border-[#00bcd4]/20 rounded-2xl p-8 min-h-[300px]
                               hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_0_25px_#00bcd4]/40">
                 <div className="mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2 text-[#efefef]">{service.title}</h3>
-                <p className="text-[#cccccc] leading-relaxed text-[15px]">{service.desc}</p>
+                <p className="text-[#d0d0d0] leading-relaxed text-[15px]">{service.desc}</p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* call to action */}
+        {/* CTA button */}
         <div className="text-center mt-16 relative z-10">
           <motion.a
             href="/services"
