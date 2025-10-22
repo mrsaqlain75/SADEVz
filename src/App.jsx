@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import PixelHero from "./components/PixelHero";
 import Hero from "./components/Hero";
 import WhoWeAre from "./components/WhoWeAre";
+import ServicesSection from "./components/ServicesSection";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Header />
       <PixelHero />
       <WhoWeAre />
+      <ServicesSection />
     </div>
   );
 }
