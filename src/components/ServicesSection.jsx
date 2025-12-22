@@ -31,7 +31,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <section className="relative bg-[#061018] text-[#efefef] py-20 md:py-28 overflow-hidden">
+    <section className="relative bg-[#1a1a1a] text-[#efefef] py-20 md:py-28 overflow-hidden font-sans">
       {/* centered layout like header */}
       <div className="relative left-1/2 -translate-x-1/2 w-[90%]">
 
@@ -70,7 +70,7 @@ const ServicesSection = () => {
               </div>
 
               {/* service box with new contrast color */}
-              <div className="w-full flex flex-col justify-between bg-[#102a3a] border border-[#00bcd4]/20 rounded-2xl p-8 min-h-[300px]
+              <div className="w-full flex flex-col justify-between bg-[#292b2c] rounded-2xl p-8 min-h-[300px]
                               hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_0_25px_#00bcd4]/40">
                 <div className="mb-4">{service.icon}</div>
                 <h3 className="text-xl font-semibold mb-2 text-[#efefef]">{service.title}</h3>

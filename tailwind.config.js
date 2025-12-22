@@ -11,11 +11,12 @@ export default {
         accent: '#e6f9ff',
         darkbg: '#2f2d25',
         bluebg: '#061018',
+        greybg: '#1a1a1a',
         light: '#efefef'
       },
       fontFamily: {
         mono: ['"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
-        sans: ['"Fira Code"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['"Manrope"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
       },
     },
   },

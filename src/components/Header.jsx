@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import logo from "../assets/logo.png";
+import logo from "../assets/horizontal-logo.png";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +22,7 @@ function Header() {
     <header className="
     fixed left-1/2 top-5 -translate-x-1/2 w-[90%]
     rounded-2xl
+    font-sans
     px-6 py-3 z-[999]
     flex justify-between items-center
     transition-all duration-300

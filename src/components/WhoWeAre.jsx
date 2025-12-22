@@ -4,7 +4,7 @@ import team from "../assets/team.png";
 
 const WhoWeAre = () => {
   return (
-    <section className="w-full bg-light py-20 px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-14 overflow-hidden">
+    <section className="w-full bg-light py-20 px-6 md:px-16 flex flex-col md:flex-row items-center justify-between gap-14 overflow-hidden font-sans">
       
       {/* Left Image */}
       <motion.div
@@ -23,7 +23,7 @@ const WhoWeAre = () => {
 
       {/* Right Text Content */}
       <motion.div
-        className="md:w-1/2 text-bluebg"
+        className="md:w-1/2 text-greybg"
         initial={{ opacity: 0, x: 60 }}
         whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}

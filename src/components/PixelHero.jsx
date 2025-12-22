@@ -16,7 +16,7 @@ export default function PixelHero({ headerOffset = 56 }) {
   const COLORS = {
     bright: "#00bcd4",
     accent: "#efefef",
-    bluebg: "#061018", // terminal blue background
+    bluebg: "#1a1a1a", // terminal blue background
     panelGlow: "#00bcd4",
     button: "#00bcd4",
     buttonHover: "#00acc1",
@@ -217,7 +217,7 @@ export default function PixelHero({ headerOffset = 56 }) {
   return (
     <section
       ref={containerRef}
-      className="relative w-full min-h-[90vh] md:min-h-screen overflow-hidden flex justify-center"
+      className="relative w-full min-h-[90vh] md:min-h-screen overflow-hidden flex justify-center font-sans"
       style={{ paddingTop: '56px', background: COLORS.bluebg }} // mobile default
 
     >
