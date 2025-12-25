@@ -261,7 +261,7 @@ export default function PixelHero({ headerOffset = 56 }) {
           style={{
             background: COLORS.bluebg,
             border: `1px solid rgba(255,255,255,0.03)`,
-            boxShadow: `0 0 20px ${COLORS.panelGlow}33, 0 10px 40px rgba(0,0,0,0.6)`,
+            boxShadow: `0 0 20px ${COLORS.accent}33, 0 10px 40px rgba(0,0,0,0.6)`,
           }}
           whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
           transition={{ type: "spring", stiffness: 200, damping: 22 }}
@@ -319,7 +319,7 @@ export default function PixelHero({ headerOffset = 56 }) {
             style={{
               background: COLORS.bluebg,
               border: `1px solid rgba(255,255,255,0.03)`,
-              boxShadow: `0 0 20px ${COLORS.panelGlow}33, inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.5)`,
+              boxShadow: `0 0 20px ${COLORS.accent}33, inset 0 1px 0 rgba(255,255,255,0.02), 0 6px 20px rgba(0,0,0,0.5)`,
             }}
             whileHover={prefersReducedMotion ? {} : { scale: 1.015 }}
             transition={{ type: "spring", stiffness: 220, damping: 20 }}
@@ -357,7 +357,7 @@ export default function PixelHero({ headerOffset = 56 }) {
             style={{
               border: `1px solid rgba(255,255,255,0.04)`,
               background: COLORS.bluebg,
-              boxShadow: `0 0 20px ${COLORS.panelGlow}33, 0 10px 40px rgba(0,0,0,0.6)`,
+              boxShadow: `0 0 20px ${COLORS.accent}33, 0 10px 40px rgba(0,0,0,0.6)`,
             }}
             whileHover={prefersReducedMotion ? {} : { scale: 1.01 }}
             transition={{ type: "spring", stiffness: 200, damping: 24 }}

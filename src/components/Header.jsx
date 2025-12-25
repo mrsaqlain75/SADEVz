@@ -32,14 +32,14 @@ function Header() {
     border border-gray-300
     shadow-[0_10px_40px_rgba(0,0,0,0.25)]
   ">
-      {/* Logo */}
-      <div className="flex items-center gap-2">
-        <img
-          src={logo}
-          alt="SADEVZ Logo"
-          className="h-12 transition-transform duration-300 hover:scale-95"
-        />
-      </div>
+{/* Logo */}
+<div className="flex items-center gap-2">
+  <img
+    src={logo}
+    alt="SADEVZ Logo"
+    className="h-9 md:h-12 transition-transform duration-300 hover:scale-95"
+  />
+</div>
 
       {/* Desktop Navbar */}
       <nav className="hidden md:flex gap-6 font-medium text-sm lg:text-base">

@@ -4,6 +4,8 @@ import PixelHero from "./components/PixelHero";
 import Hero from "./components/Hero";
 import WhoWeAre from "./components/WhoWeAre";
 import ServicesSection from "./components/ServicesSection";
+import WhyWeDoIt from "./components/WhyWeDoIt";
+import WorkflowSection from "./components/WorkflowSection";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <PixelHero />
       <WhoWeAre />
       <ServicesSection />
+      <WhyWeDoIt />
+      <WorkflowSection />
     </div>
   );
 }
