@@ -96,7 +96,7 @@ export default function CinematicHero() {
             phase === 1 ? 0.9 :
             phase === 2 ? 0.8 :
             isLogo ? 1 :
-            isCollapse ? 1 : 1,   // ← FIXED: no tiny shrink
+            isCollapse ? 1 : 1,
 
           x:
             phase === 1 ? -150 :
@@ -188,7 +188,8 @@ export default function CinematicHero() {
       {/* ============================ */}
       {/*            TEXT              */}
       {/* ============================ */}
-      <div className="absolute bottom-[18vh] flex flex-col items-center">
+      <div className="absolute bottom-[12vh] flex flex-col items-center">
+
         <AnimatePresence mode="wait">
           {!isCollapse && (
             <motion.div
@@ -206,6 +207,23 @@ export default function CinematicHero() {
               <p className="text-learncolor mt-2 text-lg md:text-xl">
                 {TEXT[phase].subtitle}
               </p>
+
+              {/* CONNECT BUTTON */}
+              {isLogo && (
+                <motion.a
+                  href="#contact"
+                  className="mt-6 px-8 py-3 rounded-full font-semibold shadow-md"
+                  whileHover={{ scale: 1.06 }}
+                  whileTap={{ scale: 0.96 }}
+                  style={{
+                    backgroundColor: COLORS.bright,
+                    color: "#061018",
+                    boxShadow: `0 0 18px ${COLORS.bright}55`,
+                  }}
+                >
+                  Connect
+                </motion.a>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
