@@ -1,14 +1,15 @@
 {
+  "homepage": "https://mrsaqlain75.github.io/SADEVz",
   "name": "sadevz",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/mrsaqlain75/SADEVz.git/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
