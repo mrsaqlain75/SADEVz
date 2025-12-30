@@ -188,7 +188,8 @@ export default function CinematicHero() {
       {/* ============================ */}
       {/*            TEXT              */}
       {/* ============================ */}
-      <div className="absolute bottom-[12vh] flex flex-col items-center">
+<div className="absolute bottom-[26vh] md:bottom-[10vh] flex flex-col items-center">
+
 
         <AnimatePresence mode="wait">
           {!isCollapse && (

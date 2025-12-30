@@ -62,3 +62,25 @@ html, body {
 }
 
 
+/* Add to your index.css or global CSS file */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #00bcd4 transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #00bcd4;
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00a8c6;
+}
