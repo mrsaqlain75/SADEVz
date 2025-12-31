@@ -125,11 +125,7 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-10 md:mb-14"
         >
-          <div className="inline-flex items-center justify-center gap-2 mb-4">
-            <Target className="w-5 h-5 text-bright" />
-            <span className="text-bright font-semibold tracking-wider text-xs uppercase">Our Services</span>
-            <Target className="w-5 h-5 text-bright" />
-          </div>
+
           
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-light leading-tight">
             What We <span className="text-bright">Do?</span>
