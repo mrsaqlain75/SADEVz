@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "E-Commerce Platform",
+    "shortDescription": "A full-featured online shopping solution",
+    "description": "Developed a comprehensive e-commerce platform with user authentication, payment gateway integration, inventory management, and real-time analytics. The platform supports thousands of daily transactions with 99.9% uptime.",
+    "completionDate": "2024-01-15",
+    "technologies": ["React", "Node.js", "MongoDB", "Stripe API"],
+    "images": [
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
+    "category": "Web Development"
+  },
+  {
+    "id": 2,
+    "title": "Healthcare Mobile App",
+    "shortDescription": "Patient management and telemedicine application",
+    "description": "Created a cross-platform mobile application for healthcare providers featuring appointment scheduling, video consultations, prescription management, and secure patient data handling compliant with HIPAA regulations.",
+    "completionDate": "2023-11-20",
+    "technologies": ["React Native", "Firebase", "WebRTC", "Redux"],
+    "images": [
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
+    "category": "Mobile Development"
+  },
+  {
+    "id": 3,
+    "title": "Corporate Dashboard",
+    "shortDescription": "Data visualization and analytics platform",
+    "description": "Built an enterprise dashboard for real-time business intelligence with customizable widgets, interactive charts, and automated reporting. Integrates with multiple data sources including Salesforce, Google Analytics, and SQL databases.",
+    "completionDate": "2023-09-30",
+    "technologies": ["Vue.js", "D3.js", "Python", "PostgreSQL"],
+    "images": [
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
+    "category": "Data Visualization"
+  },
+  {
+    "id": 4,
+    "title": "Travel Booking System",
+    "shortDescription": "Multi-vendor travel and accommodation platform",
+    "description": "Developed a comprehensive travel booking system supporting flights, hotels, and car rentals. Features include dynamic pricing, multi-currency support, booking management, and a commission system for vendors.",
+    "completionDate": "2023-08-12",
+    "technologies": ["Next.js", "GraphQL", "Redis", "Docker"],
+    "images": [
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ],
+    "category": "Full Stack"
+  }
+]

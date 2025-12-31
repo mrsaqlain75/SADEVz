@@ -6,6 +6,7 @@ import WhyWeDoIt from "./components/WhyWeDoIt";
 import WorkflowSection from "./components/WorkflowSection";
 import ServicesSection from "./components/ServicesSection";
 import ServicesShowcase from "./components/ServicesShowcase";
+import PortfolioSection from "./components/PortfolioSection";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <ServicesSection />
       <WhyWeDoIt />
       <WorkflowSection />
+      <PortfolioSection />
     </div>
   );
 }
