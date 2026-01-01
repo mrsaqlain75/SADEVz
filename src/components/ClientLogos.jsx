@@ -339,13 +339,7 @@ const ClientLogos = () => {
           viewport={{ once: true }}
           className="mt-8 md:mt-12 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-bright/50 transition-colors cursor-pointer group">
-            <Sparkles className="w-4 h-4 text-bright" />
-            <span className="text-sm text-white font-medium group-hover:text-bright transition-colors">
-              View All Case Studies
-            </span>
-            <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-bright transition-colors" />
-          </div>
+
           
           <p className="text-xs text-gray-400 mt-4 max-w-md mx-auto">
             From startups to enterprises, we deliver exceptional results that drive growth and innovation.

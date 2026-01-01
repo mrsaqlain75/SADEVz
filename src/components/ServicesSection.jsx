@@ -104,18 +104,14 @@ const ServicesSection = () => {
       ref={containerRef}
       className="relative bg-greybg text-light py-12 md:py-16 lg:py-20 overflow-hidden font-sans"
     >
-      {/* Animated Background Elements */}
-      <motion.div 
-        style={{ y: springY }}
-        className="absolute inset-0 overflow-hidden pointer-events-none"
-      >
-        <div className="absolute top-20 -left-20 w-72 h-72 bg-[#1a1c1d] rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -right-20 w-72 h-72 bg-[#1a1c1d] rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-px bg-gradient-to-r from-transparent via-[#2a2c2d] to-transparent" />
-      </motion.div>
+      
+      <div className="absolute inset-0 opacity-5" style={{
+    backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
+    backgroundSize: '30px 30px'
+  }} />
 
       {/* Main Container */}
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Header Section */}
         <motion.div 
@@ -489,7 +485,6 @@ const ServicesSection = () => {
               href="/services"
               className="inline-flex items-center gap-2 px-8 py-3 bg-[#252728] text-light rounded-full font-medium hover:bg-[#2a2c2d] transition-all duration-300 border border-[#2a2c2d]"
             >
-              <Sparkles className="w-4 h-4 text-bright" />
               <span>View All Services</span>
               <ArrowRight className="w-4 h-4 text-bright" />
             </motion.a>

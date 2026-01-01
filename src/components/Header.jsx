@@ -106,13 +106,27 @@ function Header() {
 
   return (
     <>
+      {/* Background Pattern Container - Just for mobile overlay */}
+      <div className={`
+        fixed inset-0 z-[998]
+        ${isOpen ? "block" : "hidden"}
+      `}>
+        <div className="absolute inset-0 bg-[#1a1a1a]"></div>
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
+            backgroundSize: '30px 30px'
+          }}></div>
+        </div>
+      </div>
+    
       {/* Premium Glass Header */}
       <header className="
         fixed left-1/2 top-4 -translate-x-1/2 
         w-[95%] lg:w-[94%] xl:w-[92%] max-w-7xl
         rounded-2xl
         font-sans
-        px-6 py-4 z-[1000]
+        px-6 py-2 z-[1000]
         flex justify-between items-center
         transition-all duration-500
 
@@ -198,8 +212,17 @@ function Header() {
                   onMouseEnter={handleServicesHover}
                   onMouseLeave={handleServicesLeave}
                 >
+                  {/* Add background pattern to dropdown */}
+                  <div className="absolute inset-0 opacity-3">
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `radial-gradient(circle at 1px 1px, #000000 1px, transparent 0)`,
+                      backgroundSize: '30px 30px'
+                    }}></div>
+                  </div>
+                  
                   {/* Glass background with border */}
                   <div className="
+                    relative z-10
                     bg-white/95 backdrop-blur-xl
                     border border-gray-200/80
                     rounded-2xl
@@ -305,15 +328,32 @@ function Header() {
         </button>
       </header>
 
-      {/* Premium Mobile Navigation Overlay */}
+      {/* Premium Mobile Navigation Overlay - Simplified with background pattern */}
       <div className={`
         fixed inset-0 top-0 z-[999] font-sans
-        bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-900/95
-        backdrop-blur-xl
         transition-all duration-500 ease-in-out
         ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
       `}>
+        {/* The background pattern container */}
+        <div className="absolute inset-0 bg-[#1a1a1a]">
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute inset-0" style={{
+              backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
+              backgroundSize: '30px 30px'
+            }}></div>
+          </div>
+        </div>
+        
+        {/* Gradient overlay for depth */}
         <div className="
+          absolute inset-0
+          bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-900/95
+          backdrop-blur-xl
+        "></div>
+        
+        {/* Content container */}
+        <div className="
+          relative z-10
           h-full 
           flex flex-col 
           pt-28 pb-10 px-6
@@ -514,7 +554,7 @@ function Header() {
           <div className="mt-8 text-center">
             <div className="text-sm text-gray-400 space-y-2">
               <p>Ready to discuss your project?</p>
-              <p className="text-white font-medium">contact@sadevz.com</p>
+              <p className="text-white font-medium">info@sadevz.com</p>
             </div>
           </div>
         </div>

@@ -119,7 +119,7 @@ const WhoWeAre = () => {
           >
             <div className="mb-8">
               <h3 className="text-3xl md:text-4xl font-bold text-bluebg mb-6">
-                Who <span className="text-bright">We Are</span>
+                Who <span className="text-bright">We Are?</span>
               </h3>
               
               <div className="space-y-4 text-gray-700">

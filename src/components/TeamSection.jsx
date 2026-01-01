@@ -384,7 +384,7 @@ const TeamSection = () => {
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 px-8 py-6 bg-white rounded-2xl border border-gray-200 shadow-lg">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full bg-bright/10 flex items-center justify-center">
-                <Sparkles className="w-6 h-6 text-bright" />
+                <Code className="w-6 h-6 text-bright" />
               </div>
               <div className="text-left">
                 <h4 className="font-bold text-gray-900">Ready to work with us?</h4>

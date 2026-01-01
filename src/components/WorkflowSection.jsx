@@ -60,7 +60,11 @@ const WorkflowSection = () => {
 
   return (
     <section className="relative bg-greybg text-light py-12 md:py-16 font-sans">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="absolute inset-0 opacity-5" style={{
+    backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
+    backgroundSize: '30px 30px'
+  }} />
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
         <div className="text-center mb-10 md:mb-12">

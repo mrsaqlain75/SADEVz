@@ -144,7 +144,8 @@ This is a basic cookie policy. We will provide detailed information about specif
     const policy = policyContent[activePolicy];
 
     return (
-<div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">        <div className="relative w-full max-w-2xl max-h-[80vh] overflow-auto bg-gray-900 border border-gray-700 rounded-xl shadow-2xl">
+<div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-[#1a1a1a]">        <div className="relative w-full max-w-2xl max-h-[80vh] overflow-auto bg-gray-900 border border-gray-700 rounded-xl shadow-2xl">
+          
           {/* Modal Header */}
           <div className="sticky top-0 z-10 p-6 border-b border-gray-800 bg-gray-900">
             <div className="flex items-center justify-between">
@@ -168,7 +169,7 @@ This is a basic cookie policy. We will provide detailed information about specif
           </div>
 
           {/* Modal Footer */}
-          <div className="p-6 border-t border-gray-800 bg-gray-800/50">
+          <div className="p-6 border-t border-gray-800 bg-greybg">
             <div className="flex justify-between items-center">
               <p className="text-sm text-gray-400">
                 Last updated: {currentYear}
@@ -187,8 +188,7 @@ This is a basic cookie policy. We will provide detailed information about specif
   };
 
   return (
-    <footer className="bg-gray-900 text-gray-300 font-sans">
-      {/* Main Footer Content */}
+<footer className="bg-[#1a1a1a] text-gray-300 font-sans">      {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           
