@@ -1,4 +1,5 @@
 import React from "react";
+import ScrollProgressBar from "./components/ScrollProgressBar";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import WhoWeAre from "./components/WhoWeAre";
@@ -15,6 +16,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <div className="relative min-h-screen bg-light text-accent">
+      <ScrollProgressBar />
       <Header />
       <Hero />
       <WhoWeAre />

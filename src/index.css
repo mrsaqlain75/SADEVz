@@ -61,26 +61,16 @@ html, body {
   50% { transform: translateY(-5px); }
 }
 
-
-/* Add to your index.css or global CSS file */
-.custom-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: #00bcd4 transparent;
+/* Ensure progress bar stays on top */
+.scroll-progress-bar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: 9999 !important;
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #00bcd4;
-  border-radius: 2px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #00a8c6;
+/* Make sure header doesn't cover it */
+header, .header {
+  position: relative;
+  z-index: 999;
 }
