@@ -7,6 +7,7 @@ import WorkflowSection from "./components/WorkflowSection";
 import ServicesSection from "./components/ServicesSection";
 import ServicesShowcase from "./components/ServicesShowcase";
 import PortfolioSection from "./components/PortfolioSection";
+import TechnologyCarousel from "./components/TechnologyCarousel";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
       <Hero />
       <WhoWeAre />
       <ServicesSection />
-      <WhyWeDoIt />
+      <TechnologyCarousel />
       <WorkflowSection />
       <PortfolioSection />
     </div>

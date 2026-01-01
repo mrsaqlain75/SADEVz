@@ -277,19 +277,19 @@ const PortfolioSection = () => {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
-              <div className="text-3xl font-bold text-bright mb-2">50+</div>
+              <div className="text-3xl font-bold text-bright mb-2">20+</div>
               <div className="text-sm text-gray-600">Projects Completed</div>
             </div>
             <div className="text-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
-              <div className="text-3xl font-bold text-bright mb-2">100%</div>
-              <div className="text-sm text-gray-600">Client Satisfaction</div>
+              <div className="text-3xl font-bold text-bright mb-2">50+</div>
+              <div className="text-sm text-gray-600">Students Trained</div>
             </div>
             <div className="text-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
               <div className="text-3xl font-bold text-bright mb-2">15+</div>
               <div className="text-sm text-gray-600">Technologies</div>
             </div>
             <div className="text-center p-4 bg-white rounded-xl border border-gray-200 shadow-sm">
-              <div className="text-3xl font-bold text-bright mb-2">4.9</div>
+              <div className="text-3xl font-bold text-bright mb-2">5.0</div>
               <div className="text-sm text-gray-600">Average Rating</div>
             </div>
           </div>
