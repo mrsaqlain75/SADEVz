@@ -8,6 +8,7 @@ import ServicesSection from "./components/ServicesSection";
 import ServicesShowcase from "./components/ServicesShowcase";
 import PortfolioSection from "./components/PortfolioSection";
 import TechnologyCarousel from "./components/TechnologyCarousel";
+import ClientLogos from "./components/ClientLogos";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <TechnologyCarousel />
       <WorkflowSection />
       <PortfolioSection />
+      <ClientLogos />
     </div>
   );
 }
