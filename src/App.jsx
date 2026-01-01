@@ -9,6 +9,8 @@ import ServicesShowcase from "./components/ServicesShowcase";
 import PortfolioSection from "./components/PortfolioSection";
 import TechnologyCarousel from "./components/TechnologyCarousel";
 import ClientLogos from "./components/ClientLogos";
+import TeamSection from "./components/TeamSection";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <WorkflowSection />
       <PortfolioSection />
       <ClientLogos />
+      <TeamSection />
+      <Footer />
     </div>
   );
 }

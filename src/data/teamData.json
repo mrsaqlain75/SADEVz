@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Morgan",
+    "role": "Lead Developer & CTO",
+    "bio": "Full-stack wizard with 8+ years of experience. Specializes in React, Node.js, and cloud architecture. Passionate about scalable solutions and clean code.",
+    "image": "/images/team/alex.jpg",
+    "skills": ["React", "Node.js", "AWS", "Python"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/alexmorgan",
+      "github": "https://github.com/alexmorgan",
+      "twitter": "https://twitter.com/alexmorgan",
+      "website": "https://alexmorgan.dev"
+    },
+    "funFact": "Built his first app at 15",
+    "yearsOfExperience": 8
+  },
+  {
+    "id": 2,
+    "name": "Sarah Chen",
+    "role": "UI/UX Designer & Creative Director",
+    "bio": "Design enthusiast with a keen eye for user experience. Expert in Figma, Adobe Creative Suite, and creating intuitive interfaces that convert.",
+    "image": "/images/team/sarah.jpg",
+    "skills": ["Figma", "UI/UX", "Adobe Suite", "Prototyping"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/sarahchen",
+      "dribbble": "https://dribbble.com/sarahchen",
+      "behance": "https://behance.net/sarahchen",
+      "website": "https://sarahchen.design"
+    },
+    "funFact": "Former architecture student",
+    "yearsOfExperience": 6
+  },
+  {
+    "id": 3,
+    "name": "Marcus Johnson",
+    "role": "Mobile Development Lead",
+    "bio": "Native and cross-platform mobile expert. Has shipped 20+ apps to both App Store and Play Store with 4.8+ average ratings.",
+    "image": "/images/team/marcus.jpg",
+    "skills": ["React Native", "Kotlin", "Swift", "Flutter"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/marcusjohnson",
+      "github": "https://github.com/marcusjohnson",
+      "twitter": "https://twitter.com/marcusjohnson",
+      "website": "https://marcusjohnson.io"
+    },
+    "funFact": "Competitive hackathon winner",
+    "yearsOfExperience": 7
+  },
+  {
+    "id": 4,
+    "name": "Priya Sharma",
+    "role": "Digital Marketing & Growth Strategist",
+    "bio": "Growth hacker with expertise in SEO, SEM, and social media marketing. Helped scale 3 startups from 0 to 100K+ users.",
+    "image": "/images/team/priya.jpg",
+    "skills": ["SEO", "Google Ads", "Social Media", "Analytics"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/priyasharma",
+      "twitter": "https://twitter.com/priyasharma",
+      "website": "https://priyasharma.marketing"
+    },
+    "funFact": "Speaks 4 languages fluently",
+    "yearsOfExperience": 5
+  }
+]
