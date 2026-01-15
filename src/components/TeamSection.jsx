@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Users, 
@@ -19,6 +19,7 @@ import {
   PenTool
 } from 'lucide-react';
 import teamData from '../data/teamData.json';
+import ReactDOM from 'react-dom';
 
 const TeamSection = () => {
   const [selectedMember, setSelectedMember] = useState(null);
@@ -27,7 +28,7 @@ const TeamSection = () => {
   // Filter team members by role category
   const filteredMembers = teamData.filter(member => {
     if (activeTab === 'all') return true;
-    if (activeTab === 'tech') return ['Lead Developer & CTO', 'Mobile Development Lead'].includes(member.role);
+    if (activeTab === 'tech') return ['CEO & Founder', 'Mobile Development Lead'].includes(member.role);
     if (activeTab === 'creative') return ['UI/UX Designer & Creative Director'].includes(member.role);
     if (activeTab === 'growth') return ['Digital Marketing & Growth Strategist'].includes(member.role);
     return true;
@@ -41,15 +42,17 @@ const TeamSection = () => {
       twitter: <Twitter className="w-4 h-4" />,
       website: <Globe className="w-4 h-4" />,
       dribbble: <Dribbble className="w-4 h-4" />,
-      behance: <Behance className="w-4 h-4" />,
-      mail: <Mail className="w-4 h-4" />
+      behance: <PenTool className="w-4 h-4" />,
+      mail: <Mail className="w-4 h-4" />,
+      instagram: <Sparkles className="w-4 h-4" />,
+      facebook: <Users className="w-4 h-4" />,
     };
     return icons[platform] || <ExternalLink className="w-4 h-4" />;
   };
 
   // Role icon mapping
   const getRoleIcon = (role) => {
-    if (role.includes('Developer') || role.includes('CTO')) return <Code className="w-5 h-5" />;
+    if (role.includes('Developer') || role.includes('CTO') || role.includes('CEO')) return <Code className="w-5 h-5" />;
     if (role.includes('Designer') || role.includes('Creative')) return <Palette className="w-5 h-5" />;
     if (role.includes('Mobile')) return <Smartphone className="w-5 h-5" />;
     if (role.includes('Marketing') || role.includes('Growth')) return <TrendingUp className="w-5 h-5" />;
@@ -68,15 +71,48 @@ const TeamSection = () => {
       className="group relative cursor-pointer overflow-hidden rounded-2xl bg-white border border-gray-200 transition-all duration-300 hover:border-bright hover:shadow-xl"
     >
       {/* Image Container */}
-      <div className="relative h-64 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-        {/* Placeholder for image - you'll replace with actual images */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="relative w-32 h-32 rounded-full bg-gradient-to-br from-bright/20 to-bright/40 flex items-center justify-center">
-            <span className="text-4xl font-bold text-gray-800">
-              {member.name.split(' ').map(n => n[0]).join('')}
-            </span>
-          </div>
-        </div>
+      <div className="relative h-64 overflow-hidden">
+        {/* Actual Image */}
+        <img
+          src={member.image}
+          alt={member.name}
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+          onError={(e) => {
+            e.target.style.display = 'none';
+            const container = e.target.parentElement;
+            container.innerHTML = `
+              <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+                <div class="relative w-32 h-32 rounded-full bg-gradient-to-br from-bright/20 to-bright/40 flex items-center justify-center">
+                  <span class="text-4xl font-bold text-gray-800">
+                    ${member.name.split(' ').map(n => n[0]).join('')}
+                  </span>
+                </div>
+                <div class="absolute bottom-4 left-0 right-0 px-4">
+                  <div class="flex flex-wrap gap-1 justify-center">
+                    ${member.skills.slice(0, 3).map((skill, idx) => `
+                      <span class="px-2 py-1 bg-white/90 backdrop-blur-sm rounded text-xs font-medium text-gray-800">
+                        ${skill}
+                      </span>
+                    `).join('')}
+                    ${member.skills.length > 3 ? `
+                      <span class="px-2 py-1 bg-white/90 backdrop-blur-sm rounded text-xs font-medium text-gray-800">
+                        +${member.skills.length - 3}
+                      </span>
+                    ` : ''}
+                  </div>
+                </div>
+                <div class="absolute top-4 right-4">
+                  <div class="flex items-center gap-1 px-3 py-1 bg-white/90 backdrop-blur-sm rounded-full text-xs font-medium text-gray-800 shadow-sm">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                    <span>${member.yearsOfExperience}+ years</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }}
+        />
         
         {/* Experience Badge */}
         <div className="absolute top-4 right-4">
@@ -142,35 +178,70 @@ const TeamSection = () => {
     </motion.div>
   );
 
-  // Modal for detailed view
-  const MemberModal = () => {
+  // Create a separate modal component that will be rendered via portal
+  const TeamMemberModal = () => {
     if (!selectedMember) return null;
 
-    return (
+    const modalContent = (
       <AnimatePresence>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setSelectedMember(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[99999] font-sans bg-black/80 backdrop-blur-sm"
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '1rem',
+            overflow: 'auto'
+          }}
         >
           <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.9, opacity: 0 }}
+            initial={{ scale: 0.95, opacity: 0, y: 20 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.95, opacity: 0, y: 20 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
             onClick={(e) => e.stopPropagation()}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-auto rounded-2xl bg-white"
+            className="bg-white rounded-2xl shadow-2xl"
+            style={{
+              position: 'relative',
+              width: '100%',
+              maxWidth: '56rem',
+              maxHeight: '90vh',
+              overflow: 'auto',
+              zIndex: 100000,
+              marginTop: '4rem'
+            }}
           >
             {/* Header */}
             <div className="sticky top-0 z-10 p-6 border-b border-gray-200 bg-white">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-6">
                   {/* Avatar */}
-                  <div className="relative w-20 h-20 rounded-full bg-gradient-to-br from-bright/20 to-bright/40 flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-800">
-                      {selectedMember.name.split(' ').map(n => n[0]).join('')}
-                    </span>
+                  <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-white shadow-lg">
+                    <img
+                      src={selectedMember.image}
+                      alt={selectedMember.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentElement.innerHTML = `
+                          <div class="w-full h-full bg-gradient-to-br from-bright/20 to-bright/40 flex items-center justify-center">
+                            <span class="text-2xl font-bold text-gray-800">
+                              ${selectedMember.name.split(' ').map(n => n[0]).join('')}
+                            </span>
+                          </div>
+                        `;
+                      }}
+                    />
                   </div>
                   
                   <div>
@@ -289,6 +360,8 @@ const TeamSection = () => {
         </motion.div>
       </AnimatePresence>
     );
+
+    return ReactDOM.createPortal(modalContent, document.body);
   };
 
   return (
@@ -309,8 +382,6 @@ const TeamSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12 md:mb-16"
         >
-
-          
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 leading-tight">
             Meet Our <span className="text-bright">Team</span> 
           </h1>
@@ -330,7 +401,7 @@ const TeamSection = () => {
         >
           {[
             { id: 'all', label: 'All Team', count: teamData.length },
-            { id: 'tech', label: 'Tech & Dev', count: teamData.filter(m => ['Lead Developer & CTO', 'Mobile Development Lead'].includes(m.role)).length },
+            { id: 'tech', label: 'Tech & Dev', count: teamData.filter(m => ['CEO & Founder', 'Mobile Development Lead'].includes(m.role)).length },
             { id: 'creative', label: 'Creative', count: teamData.filter(m => ['UI/UX Designer & Creative Director'].includes(m.role)).length },
             { id: 'growth', label: 'Growth', count: teamData.filter(m => ['Digital Marketing & Growth Strategist'].includes(m.role)).length }
           ].map((tab) => (
@@ -370,7 +441,7 @@ const TeamSection = () => {
           viewport={{ once: true }}
           className="mt-16 pt-8 border-t border-gray-300"
         >
-          
+          {/* Stats content can go here if needed */}
         </motion.div>
 
         {/* CTA */}
@@ -397,8 +468,8 @@ const TeamSection = () => {
           </div>
         </motion.div>
 
-        {/* Modal */}
-        <MemberModal />
+        {/* Modal - rendered via portal */}
+        <TeamMemberModal />
       </div>
     </section>
   );

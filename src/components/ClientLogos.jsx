@@ -5,105 +5,144 @@ import { Building2, Sparkles, ChevronRight } from 'lucide-react';
 const ClientLogos = () => {
   const [isPaused, setIsPaused] = useState(false);
   
-  // Demo client data - replace with actual logos later
-  const clients = [
-    {
-      id: 1,
-      name: 'TechNova',
-      industry: 'SaaS',
-      year: '2023',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">TN</span>
-          <div className="absolute inset-0 rounded-lg border border-blue-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 2,
-      name: 'UrbanEats',
-      industry: 'Food',
-      year: '2023',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-green-500 to-emerald-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">UE</span>
-          <div className="absolute inset-0 rounded-lg border border-green-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 3,
-      name: 'FinSecure',
-      industry: 'FinTech',
-      year: '2024',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-purple-500 to-purple-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">FS</span>
-          <div className="absolute inset-0 rounded-lg border border-purple-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 4,
-      name: 'EduVision',
-      industry: 'EdTech',
-      year: '2023',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-orange-500 to-orange-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">EV</span>
-          <div className="absolute inset-0 rounded-lg border border-orange-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 5,
-      name: 'MediCare+',
-      industry: 'Health',
-      year: '2024',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">MC</span>
-          <div className="absolute inset-0 rounded-lg border border-red-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 6,
-      name: 'EcoStyle',
-      industry: 'Fashion',
-      year: '2023',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-teal-500 to-teal-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">ES</span>
-          <div className="absolute inset-0 rounded-lg border border-teal-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 7,
-      name: 'SmartHome',
-      industry: 'IoT',
-      year: '2024',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-cyan-500 to-cyan-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">SH</span>
-          <div className="absolute inset-0 rounded-lg border border-cyan-400/30"></div>
-        </div>
-      )
-    },
-    {
-      id: 8,
-      name: 'AutoDrive',
-      industry: 'Auto',
-      year: '2023',
-      logo: (
-        <div className="relative w-20 h-20 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-700 flex items-center justify-center">
-          <span className="text-white text-xl font-bold">AD</span>
-          <div className="absolute inset-0 rounded-lg border border-indigo-400/30"></div>
-        </div>
-      )
-    }
-  ];
+// Demo client data - replace with actual logos later
+const clients = [
+  {
+    id: 1,
+    name: 'The Free Library Foundation',
+    industry: 'Education',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/free.png" 
+          alt="Free Library Foundation Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 2,
+    name: 'Shifa Diagnostic Center Chitral',
+    industry: 'Healthcare',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/shifa.png" 
+          alt="Shifa Diagnostic Center Chitral Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 3,
+    name: 'Madina Foam & Carpet House Drosh',
+    industry: 'Fabrics',
+    year: '2024',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/madina.png" 
+          alt="Madina Foam & Carpet House Drosh Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 4,
+    name: 'Native Resort Bamborate',
+    industry: 'Restaurant',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/native logo black.png" 
+          alt="Native Resort Bamborate Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 5,
+    name: 'MAIIT Chitral',
+    industry: 'Education',
+    year: '2023',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/maiit.png" 
+          alt="MAIIT Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 6,
+    name: 'Drosh Inn Hotel',
+    industry: 'Hotel',
+    year: '2024',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/drosh.png" 
+          alt="Drosh Inn Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 7,
+    name: 'Natures Rhythm Yoga, UK',
+    industry: 'Health & Wellness',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/yoga.png" 
+          alt="Natures Rhythm Yoga, UK Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 8,
+    name: 'Crown Catering Brooklyn',
+    industry: 'Restaurant',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/crown.png" 
+          alt="Crown Catering Brooklyn Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  },
+  {
+    id: 9,
+    name: 'J Allume Ma Rue France',
+    industry: 'Lighting House',
+    year: '2025',
+    logo: (
+      <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
+        <img 
+          src="/SADEVz/Images/clients/light.png" 
+          alt="J Allume Ma Rue France Logo" 
+          className="w-full h-full object-contain" 
+        />
+      </div>
+    )
+  }
+];
 
   // For mobile: horizontal scrolling, for desktop: vertical marquee
   const duplicatedClients = [...clients, ...clients];

@@ -22,15 +22,19 @@ const WhoWeAre = () => {
   ];
 
   return (
-    <section className="relative w-full py-12 md:py-16 px-6 md:px-16 font-sans">
-      {/* Subtle background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-light/50 to-white"></div>
+    <section className="relative w-full py-12 md:py-16 px-6 md:px-16 font-sans bg-gray-50"> {/* Added bg-gray-50 */}
       
-      <div className="max-w-6xl mx-auto relative z-10">
-        
+      {/* Background pattern - moved inside section */}
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: `radial-gradient(circle at 1px 1px, #666666 1px, transparent 0)`,
+        backgroundSize: '40px 40px'
+      }} />
+      
+      <div className="max-w-6xl mx-auto relative z-10"> {/* Added relative z-10 */}
 
         {/* Split layout - clean and balanced */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          
           {/* Left - Minimal visual */}
           <motion.div 
             className="relative"
@@ -166,7 +170,7 @@ const WhoWeAre = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
             >
-
+              {/* Your CTA content here */}
             </motion.div>
           </motion.div>
         </div>
