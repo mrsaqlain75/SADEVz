@@ -1,58 +1,54 @@
 [
   {
     "id": 1,
-    "title": "E-Commerce Platform",
-    "shortDescription": "A full-featured online shopping solution",
-    "description": "Developed a comprehensive e-commerce platform with user authentication, payment gateway integration, inventory management, and real-time analytics. The platform supports thousands of daily transactions with 99.9% uptime.",
+    "title": "Drosh Inn Website",
+    "shortDescription": "A full-featured online hotel booking website",
+    "description": "Developed a comprehensive hotel booking platform with user authentication, online booking, and real-time analytics. The platform supports thousands of daily transactions with 99.9% uptime.",
     "completionDate": "2024-01-15",
-    "technologies": ["React", "Node.js", "MongoDB", "Stripe API"],
+    "technologies": ["Bootstrap", "Node.js", "MongoDB", "Restful API"],
     "images": [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w-800&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "/SADEVz/Images/portfolio/drosh-1.png",
+      "/SADEVz/Images/portfolio/drosh-2.png",
+      "/SADEVz/Images/portfolio/drosh-3.png"
     ],
     "category": "Web Development"
   },
   {
     "id": 2,
-    "title": "Healthcare Mobile App",
-    "shortDescription": "Patient management and telemedicine application",
-    "description": "Created a cross-platform mobile application for healthcare providers featuring appointment scheduling, video consultations, prescription management, and secure patient data handling compliant with HIPAA regulations.",
-    "completionDate": "2023-11-20",
-    "technologies": ["React Native", "Firebase", "WebRTC", "Redux"],
+    "title": "Shifa Diagnostic SPA",
+    "shortDescription": "Basic Healthcare Single Page Application",
+    "description": "Created a basic responsive single page application for the stated healthcare provider featuring appointment scheduling, video consultations, prescription management, and secure patient data handling compliant.",
+    "completionDate": "2025-05-20",
+    "technologies": ["React", "Tailwind", "Lucid-React"],
     "images": [
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "/SADEVz/Images/portfolio/shifa-1.png",
+      "/SADEVz/Images/portfolio/shifa-2.png",
+      "/SADEVz/Images/portfolio/shifa-3.png"
     ],
-    "category": "Mobile Development"
+    "category": "Web Development"
   },
   {
     "id": 3,
-    "title": "Corporate Dashboard",
-    "shortDescription": "Data visualization and analytics platform",
-    "description": "Built an enterprise dashboard for real-time business intelligence with customizable widgets, interactive charts, and automated reporting. Integrates with multiple data sources including Salesforce, Google Analytics, and SQL databases.",
-    "completionDate": "2023-09-30",
-    "technologies": ["Vue.js", "D3.js", "Python", "PostgreSQL"],
+    "title": "Zubi VPN",
+    "shortDescription": "Virtual Private Network Application",
+    "description": "Built a real-time VPN application for a startup using WireGuard protocol. The app includes features like server selection, kill switch, and multi-platform support with a focus on security and speed.",
+    "completionDate": "2024-11-29",
+    "technologies": ["Kotlin", "Wire Guard", "Firebase"],
     "images": [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "/SADEVz/Images/portfolio/zubi.png"
     ],
-    "category": "Data Visualization"
+    "category": "Mobile Application"
   },
   {
     "id": 4,
-    "title": "Travel Booking System",
-    "shortDescription": "Multi-vendor travel and accommodation platform",
-    "description": "Developed a comprehensive travel booking system supporting flights, hotels, and car rentals. Features include dynamic pricing, multi-currency support, booking management, and a commission system for vendors.",
-    "completionDate": "2023-08-12",
-    "technologies": ["Next.js", "GraphQL", "Redis", "Docker"],
+    "title": "Welcome Social Media Post for Free Library Foundation Philedelphia",
+    "shortDescription": "Fully customizable social media post template",
+    "description": "Designed a vibrant and engaging social media post template for the Free Library Foundation Philadelphia to promote their events and initiatives. The template is easy to customize and adapt for various campaigns.",
+    "completionDate": "2025-08-12",
+    "technologies": ["Adobe Illustrator", "Adobe Photoshop", "Font-Awesome"],
     "images": [
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "/SADEVz/Images/portfolio/Source.png"
     ],
-    "category": "Full Stack"
+    "category": "Graphic Design"
   }
 ]

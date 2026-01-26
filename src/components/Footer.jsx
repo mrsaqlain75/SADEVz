@@ -50,23 +50,23 @@ const Footer = () => {
   const contactInfo = [
     { 
       icon: <Mail className="w-5 h-5" />, 
-      text: 'info@yourcompany.com',
-      href: 'mailto:info@yourcompany.com'
+      text: 'info@sadevz.com',
+      href: 'mailto:info@sadevz.com'
     },
     { 
       icon: <Phone className="w-5 h-5" />, 
-      text: '+1 (555) 123-4567',
-      href: 'tel:+15551234567'
+      text: '+923 27 5857692',
+      href: 'tel:+923275857692'
     },
     { 
       icon: <MapPin className="w-5 h-5" />, 
-      text: '123 Tech Street, Innovation City, IC 10001',
-      href: 'https://maps.google.com'
+      text: 'Kashghar College of IT Chitral Building',
+      href: 'https://maps.app.goo.gl/CywZafLhgRU4kqML6'
     },
     { 
       icon: <Globe className="w-5 h-5" />, 
-      text: 'www.yourcompany.com',
-      href: 'https://www.yourcompany.com'
+      text: 'www.sadevz.com',
+      href: 'https://www.sadevz.com'
     }
   ];
 
@@ -195,8 +195,8 @@ This is a basic cookie policy. We will provide detailed information about specif
           {/* Column 1: Logo & Description */}
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-bright to-bright/70 flex items-center justify-center">
-                <span className="text-white font-bold text-xl">Y</span>
+              <div className="w-12 h-12 p-[5px] rounded-full bg-gradient-to-br from-bright to-bright/70 flex items-center justify-center">
+                <span className="text-white font-bold text-xl"><img src="/SADEVz/Images/portfolio/trans.png" alt="SADEVZ Logo" /></span>
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white"><span className="text-bright">SADEVZ</span></h2>
