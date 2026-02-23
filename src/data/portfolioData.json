@@ -7,9 +7,9 @@
     "completionDate": "2024-01-15",
     "technologies": ["Bootstrap", "Node.js", "MongoDB", "Restful API"],
     "images": [
-      "/SADEVz/Images/portfolio/drosh-1.png",
-      "/SADEVz/Images/portfolio/drosh-2.png",
-      "/SADEVz/Images/portfolio/drosh-3.png"
+      "/Images/portfolio/drosh-1.png",
+      "/Images/portfolio/drosh-2.png",
+      "/Images/portfolio/drosh-3.png"
     ],
     "category": "Web Development"
   },
@@ -21,9 +21,9 @@
     "completionDate": "2025-05-20",
     "technologies": ["React", "Tailwind", "Lucid-React"],
     "images": [
-      "/SADEVz/Images/portfolio/shifa-1.png",
-      "/SADEVz/Images/portfolio/shifa-2.png",
-      "/SADEVz/Images/portfolio/shifa-3.png"
+      "/Images/portfolio/shifa-1.png",
+      "/Images/portfolio/shifa-2.png",
+      "/Images/portfolio/shifa-3.png"
     ],
     "category": "Web Development"
   },
@@ -35,19 +35,19 @@
     "completionDate": "2024-11-29",
     "technologies": ["Kotlin", "Wire Guard", "Firebase"],
     "images": [
-      "/SADEVz/Images/portfolio/zubi.png"
+      "/Images/portfolio/zubi.png"
     ],
     "category": "Mobile Application"
   },
   {
     "id": 4,
-    "title": "Welcome Social Media Post for Free Library Foundation Philedelphia",
+    "title": "Welcome Social Media Post for Free Library Foundation Philadelphia",
     "shortDescription": "Fully customizable social media post template",
     "description": "Designed a vibrant and engaging social media post template for the Free Library Foundation Philadelphia to promote their events and initiatives. The template is easy to customize and adapt for various campaigns.",
     "completionDate": "2025-08-12",
     "technologies": ["Adobe Illustrator", "Adobe Photoshop", "Font-Awesome"],
     "images": [
-      "/SADEVz/Images/portfolio/Source.png"
+      "/Images/portfolio/Source.png"
     ],
     "category": "Graphic Design"
   }

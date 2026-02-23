@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Added Link import
 import { 
   Mail, 
   Phone, 
@@ -38,7 +39,7 @@ const Footer = () => {
 
   // Social links with X instead of Twitter
   const socialLinks = [
-    { platform: 'Facebook', icon: <Facebook className="w-5 h-5" />, url: '#' },
+    { platform: 'Facebook', icon: <Facebook className="w-5 h-5" />, url: 'https://web.facebook.com/profile.php?id=61587268436347' },
     { platform: 'X', icon: <X className="w-5 h-5" />, url: '#' },
     { platform: 'Instagram', icon: <Instagram className="w-5 h-5" />, url: '#' },
     { platform: 'LinkedIn', icon: <Linkedin className="w-5 h-5" />, url: '#' },
@@ -196,7 +197,7 @@ This is a basic cookie policy. We will provide detailed information about specif
           <div className="space-y-6">
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 p-[5px] rounded-full bg-gradient-to-br from-bright to-bright/70 flex items-center justify-center">
-                <span className="text-white font-bold text-xl"><img src="/SADEVz/Images/portfolio/trans.png" alt="SADEVZ Logo" /></span>
+                <img src="/Images/portfolio/trans.png" alt="SADEVZ Logo" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white"><span className="text-bright">SADEVZ</span></h2>
@@ -219,8 +220,8 @@ This is a basic cookie policy. We will provide detailed information about specif
             <ul className="space-y-4">
               {services.map((service, index) => (
                 <li key={index}>
-                  <a 
-                    href="#" 
+                  <Link 
+                    to="/services" 
                     className="group flex items-center space-x-3 text-sm hover:text-white transition-colors"
                   >
                     <span className="text-bright group-hover:scale-110 transition-transform">
@@ -229,21 +230,21 @@ This is a basic cookie policy. We will provide detailed information about specif
                     <span className="group-hover:translate-x-1 transition-transform">
                       {service.name}
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
             
             <div className="mt-8 pt-6 border-t border-gray-800">
-              <a 
-                href="#" 
-                className="inline-flex items-center text-sm text-bright hover:text-white transition-colors"
+              <Link 
+                to="/services" 
+                className="group inline-flex items-center text-sm text-bright hover:text-white transition-colors"
               >
                 <span>View All Services</span>
-                <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -258,6 +259,8 @@ This is a basic cookie policy. We will provide detailed information about specif
                   <a 
                     href={item.href}
                     className="flex items-start space-x-4 group"
+                    target={item.href.startsWith('http') ? '_blank' : '_self'}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : ''}
                   >
                     <div className="flex-shrink-0 mt-1 text-bright group-hover:scale-110 transition-transform">
                       {item.icon}
@@ -302,6 +305,8 @@ This is a basic cookie policy. We will provide detailed information about specif
                     href={social.url}
                     className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-bright hover:text-white transition-all duration-300 hover:scale-110"
                     aria-label={social.platform}
+                    target="_blank"
+                    rel="noopener noreferrer"
                   >
                     {social.icon}
                   </a>

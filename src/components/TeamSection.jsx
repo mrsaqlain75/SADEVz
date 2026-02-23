@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
@@ -462,9 +463,11 @@ const TeamSection = () => {
                 <p className="text-sm text-gray-600">Let's build something amazing together</p>
               </div>
             </div>
-            <button className="px-6 py-3 bg-bright text-white font-medium rounded-full hover:bg-bright/90 transition-colors shadow-md hover:shadow-lg">
-              Start a Project
-            </button>
+            <Link to="/start-project">
+              <button className="px-6 py-3 bg-bright text-white font-medium rounded-full hover:bg-bright/90 transition-colors shadow-md hover:shadow-lg">
+                Start a Project
+              </button>
+            </Link>
           </div>
         </motion.div>
 

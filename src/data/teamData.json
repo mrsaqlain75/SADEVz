@@ -4,7 +4,7 @@
     "name": "Saqlain Amin",
     "role": "Founder & Lead Full Stack Developer",
     "bio": "The person behind all of this, who founded SADEVZ when no one else thought about making such initiative, specially in a place like Pakistan.",
-    "image": "/SADEVz/Images/team/saqlain.png",
+    "image": "/Images/team/saqlain.png",
     "skills": ["React", "Node.js", "Lecturer", "Python"],
     "social": {
       "linkedin": "https://linkedin.com/in/mrsaqlain75",
@@ -20,7 +20,7 @@
     "name": "Laiha Nadeem",
     "role": "UI/UX Designer & Creative Director",
     "bio": "Design enthusiast with a keen eye for user experience. Expert in Figma, Adobe Illustrator/Photoshop Suite, and creating intuitive interfaces that convert.",
-    "image": "/images/team/sarah.jpg",
+    "image": "/Images/team/sarah.jpg",  
     "skills": ["Figma", "UI/UX", "Adobe Suite", "Prototyping"],
     "social": {
       "linkedin": "https://linkedin.com/in/mrsaqlain75",
@@ -36,7 +36,7 @@
     "name": "MD Munir ul Islam",
     "role": "Frontend Developer & HR",
     "bio": " Immence fan of design principles. Has shipped 10+ apps to both intra and international clients with 4.8+ average ratings.",
-    "image": "/SADEVz/Images/team/munirrr.png",
+    "image": "/Images/team/munirrr.png",  
     "skills": ["Tailwind", "Python", "Communication Skills", "Adobe PS"],
     "social": {
       "linkedin": "https://linkedin.com/in/marcusjohnson",
@@ -52,7 +52,7 @@
     "name": "Haji Behram",
     "role": "Digital Marketing & Growth Strategist",
     "bio": "Growth hacker with expertise in SEO, SEM, and social media marketing. Helped scale 3 startups from 0 to 100K+ users.",
-    "image": "/SADEVz/Images/team/haji.jpg",
+    "image": "/Images/team/haji.jpg",  
     "skills": ["SEO", "Google Ads", "Social Media", "Analytics"],
     "social": {
       "linkedin": "https://linkedin.com/in/priyasharma",
@@ -62,12 +62,12 @@
     "funFact": "Only IT person who goes to gym",
     "yearsOfExperience": 2
   },
-    {
+  {
     "id": 5,
     "name": "Imtiaz Ahmad",
     "role": "Backend Developer",
     "bio": "God gifted talent of problem solving and logistics. Optimal solutions are his forte.",
-    "image": "/SADEVz/Images/team/imtiaz.jpg",
+    "image": "/Images/team/imtiaz.jpg",  
     "skills": ["Python", "Django", "JS", "PHP"],
     "social": {
       "linkedin": "https://linkedin.com/in/priyasharma",

@@ -314,7 +314,7 @@ const ServicesSection = () => {
                     <motion.a
                       whileHover={{ scale: 1.03 }}
                       whileTap={{ scale: 0.98 }}
-                      href="/services"
+                      href="/start-project"
                       className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#252728] border border-[#2a2c2d] text-light font-semibold rounded-full hover:bg-[#2a2c2d] transition-all duration-300 text-sm group"
                     >
                       <Palette className="w-4 h-4 text-bright group-hover:translate-x-1 transition-transform" />

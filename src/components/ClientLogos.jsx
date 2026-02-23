@@ -15,7 +15,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/free.png" 
+          src="/Images/clients/free.png" 
           alt="Free Library Foundation Logo" 
           className="w-full h-full object-contain" 
         />
@@ -30,7 +30,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/shifa.png" 
+          src="/Images/clients/shifa.png" 
           alt="Shifa Diagnostic Center Chitral Logo" 
           className="w-full h-full object-contain" 
         />
@@ -45,7 +45,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/madina.png" 
+          src="/Images/clients/madina.png" 
           alt="Madina Foam & Carpet House Drosh Logo" 
           className="w-full h-full object-contain" 
         />
@@ -60,7 +60,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/native logo black.png" 
+          src="/Images/clients/native logo black.png" 
           alt="Native Resort Bamborate Logo" 
           className="w-full h-full object-contain" 
         />
@@ -75,7 +75,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/maiit.png" 
+          src="/Images/clients/maiit.png" 
           alt="MAIIT Logo" 
           className="w-full h-full object-contain" 
         />
@@ -90,7 +90,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/drosh.png" 
+          src="/Images/clients/drosh.png" 
           alt="Drosh Inn Logo" 
           className="w-full h-full object-contain" 
         />
@@ -105,7 +105,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/yoga.png" 
+          src="/Images/clients/yoga.png" 
           alt="Natures Rhythm Yoga, UK Logo" 
           className="w-full h-full object-contain" 
         />
@@ -120,7 +120,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/crown.png" 
+          src="/Images/clients/crown.png" 
           alt="Crown Catering Brooklyn Logo" 
           className="w-full h-full object-contain" 
         />
@@ -135,7 +135,7 @@ const clients = [
     logo: (
       <div className="relative w-20 h-20 rounded-lg bg-white border border-gray-200 flex items-center justify-center p-3">
         <img 
-          src="/SADEVz/Images/clients/light.png" 
+          src="/Images/clients/light.png" 
           alt="J Allume Ma Rue France Logo" 
           className="w-full h-full object-contain" 
         />

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronDown, ChevronRight, X, Menu } from "lucide-react";
 import logo from "../assets/horizontal-logo.png";
+import { Link } from "react-router-dom";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const mobileDropdownRef = useRef(null);
   const timeoutRef = useRef(null);
 
   useEffect(() => {
@@ -15,18 +15,12 @@ function Header() {
       if (window.innerWidth >= 768) {
         setIsOpen(false);
         setServicesOpen(false);
+        setMobileServicesOpen(false);
       }
     };
 
     const handleClickOutside = (event) => {
-      // Desktop dropdown
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setServicesOpen(false);
-        setActiveDropdown(null);
-      }
-      // Mobile dropdown
-      if (mobileDropdownRef.current && !mobileDropdownRef.current.contains(event.target) && 
-          !event.target.closest('[data-services-button]')) {
         setServicesOpen(false);
       }
     };
@@ -59,12 +53,9 @@ function Header() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
     if (!isOpen) {
-      setServicesOpen(false); // Reset services on menu open
+      setServicesOpen(false);
+      setMobileServicesOpen(false);
     }
-  };
-
-  const handleMobileServicesClick = () => {
-    setServicesOpen(!servicesOpen);
   };
 
   const servicesItems = [
@@ -91,17 +82,16 @@ function Header() {
   ];
 
   const navItems = [
-    { label: "Home", href: "#" },
+    { label: "Home", href: "/" },
     { 
       label: "Services", 
-      href: "#",
+      href: "/services",
       hasDropdown: true 
     },
-    { label: "Portfolio", href: "#" },
-    { label: "Blogs", href: "#" },
-    { label: "Courses", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Contact", href: "#" }
+    { label: "Portfolio", href: "/portfolio" },
+    { label: "Blogs", href: "/blog" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" }
   ];
 
   return (
@@ -147,11 +137,13 @@ function Header() {
         <div className="flex items-center">
           <div className="relative group">
             <div className="absolute -inset-2 bg-gradient-to-r from-bright/20 to-blue-500/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <img
-              src={logo}
-              alt="SADEVZ Logo"
-              className="relative h-10 md:h-12 transition-all duration-300 hover:scale-[0.97]"
-            />
+            <Link to="/" className="relative block">
+              <img
+                src={logo}
+                alt="SADEVZ Logo"
+                className="h-10 md:h-12 transition-all duration-300 hover:scale-[0.97]"
+              />
+            </Link>
           </div>
         </div>
 
@@ -164,41 +156,60 @@ function Header() {
               onMouseEnter={() => item.hasDropdown && handleServicesHover()}
               onMouseLeave={() => item.hasDropdown && handleServicesLeave()}
             >
-              <a
-                href={item.href}
-                className="
-                  relative px-4 py-2 
-                  text-gray-700 font-medium text-sm
-                  transition-all duration-300 
-                  group
-                  hover:text-bright
-                "
-                onClick={(e) => {
-                  if (item.hasDropdown) {
-                    e.preventDefault();
-                    setServicesOpen(!servicesOpen);
-                  }
-                }}
-              >
-                {item.label}
-                {item.hasDropdown && (
+              {item.hasDropdown ? (
+                // For Services with dropdown
+                <button
+                  className="
+                    relative px-4 py-2 
+                    text-gray-700 font-medium text-sm
+                    transition-all duration-300 
+                    group
+                    hover:text-bright
+                    flex items-center
+                  "
+                  onClick={() => setServicesOpen(!servicesOpen)}
+                >
+                  {item.label}
                   <ChevronDown className={`
                     inline-block ml-1 w-4 h-4 transition-transform duration-300
                     ${servicesOpen ? 'rotate-180' : ''}
                   `} />
-                )}
-                
-                {/* Hover underline effect */}
-                <span className="
-                  absolute left-4 bottom-1 
-                  h-0.5 w-0 
-                  bg-gradient-to-r from-bright to-blue-500
-                  transition-all duration-300
-                  group-hover:w-[calc(100%-2rem)]
-                "></span>
-              </a>
+                  
+                  {/* Hover underline effect */}
+                  <span className="
+                    absolute left-4 bottom-1 
+                    h-0.5 w-0 
+                    bg-gradient-to-r from-bright to-blue-500
+                    transition-all duration-300
+                    group-hover:w-[calc(100%-2rem)]
+                  "></span>
+                </button>
+              ) : (
+                // For regular navigation items
+                <Link
+                  to={item.href}
+                  className="
+                    relative px-4 py-2 
+                    text-gray-700 font-medium text-sm
+                    transition-all duration-300 
+                    group
+                    hover:text-bright
+                    block
+                  "
+                >
+                  {item.label}
+                  {/* Hover underline effect */}
+                  <span className="
+                    absolute left-4 bottom-1 
+                    h-0.5 w-0 
+                    bg-gradient-to-r from-bright to-blue-500
+                    transition-all duration-300
+                    group-hover:w-[calc(100%-2rem)]
+                  "></span>
+                </Link>
+              )}
 
-              {/* Services Dropdown - Simplified */}
+              {/* Services Dropdown */}
               {item.hasDropdown && servicesOpen && (
                 <div 
                   ref={dropdownRef}
@@ -208,6 +219,7 @@ function Header() {
                     rounded-2xl
                     overflow-hidden
                     animate-fadeIn
+                    z-50
                   "
                   onMouseEnter={handleServicesHover}
                   onMouseLeave={handleServicesLeave}
@@ -242,12 +254,12 @@ function Header() {
                         </span>
                       </div>
 
-                      {/* Simplified Services Grid - No sub-points */}
+                      {/* Services Grid */}
                       <div className="grid grid-cols-2 gap-4">
                         {servicesItems.map((service, index) => (
-                          <a
+                          <Link
                             key={index}
-                            href="#"
+                            to="/services"
                             className="
                               group
                               p-4
@@ -258,6 +270,7 @@ function Header() {
                               hover:bg-gradient-to-br hover:from-white hover:to-gray-50
                               hover:shadow-lg
                               transition-all duration-300
+                              block
                             "
                             onClick={() => setServicesOpen(false)}
                           >
@@ -274,7 +287,7 @@ function Header() {
                                 </p>
                               </div>
                             </div>
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
@@ -287,21 +300,23 @@ function Header() {
 
         {/* CTA Button */}
         <div className="hidden md:flex items-center gap-4">
-          <button className="
-            px-5 py-2
-            bg-gradient-to-r from-bright to-blue-500
-            text-white font-medium rounded-full
-            hover:shadow-lg hover:scale-105
-            active:scale-95
-            transition-all duration-300
-            shadow-md
-            group
-          ">
-            <span className="flex items-center gap-2 text-sm">
-              Start a Project
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </span>
-          </button>
+          <Link 
+            to="/start-project"
+            className="
+              px-5 py-2
+              bg-gradient-to-r from-bright to-blue-500
+              text-white font-medium rounded-full
+              hover:shadow-lg hover:scale-105
+              active:scale-95
+              transition-all duration-300
+              shadow-md
+              group
+              flex items-center gap-2 text-sm
+            "
+          >
+            Start a Project
+            <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
@@ -328,14 +343,14 @@ function Header() {
         </button>
       </header>
 
-      {/* Premium Mobile Navigation Overlay - Simplified with background pattern */}
+      {/* Mobile Navigation Menu */}
       <div className={`
         fixed inset-0 top-0 z-[999] font-sans
         transition-all duration-500 ease-in-out
         ${isOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"}
       `}>
-        {/* The background pattern container */}
-        <div className="absolute inset-0 bg-[#1a1a1a]">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-900/95">
           <div className="absolute inset-0 opacity-5">
             <div className="absolute inset-0" style={{
               backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
@@ -344,63 +359,33 @@ function Header() {
           </div>
         </div>
         
-        {/* Gradient overlay for depth */}
-        <div className="
-          absolute inset-0
-          bg-gradient-to-b from-gray-900/95 via-gray-900/90 to-gray-900/95
-          backdrop-blur-xl
-        "></div>
-        
-        {/* Content container */}
-        <div className="
-          relative z-10
-          h-full 
-          flex flex-col 
-          pt-28 pb-10 px-6
-          overflow-y-auto
-        ">
-          {/* Premium Header in Mobile Menu */}
-          <div className="absolute top-8 left-6 right-6 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="relative">
-                <div className="absolute -inset-2 bg-gradient-to-r from-bright/20 to-blue-500/20 rounded-xl blur opacity-50"></div>
-                <img
-                  src={logo}
-                  alt="SADEVZ Logo"
-                  className="relative h-10"
-                />
-              </div>
-              <span className="text-sm font-medium text-gray-300">
-                Premium Digital Studio
-              </span>
-            </div>
-            
-            {/* Close Button */}
-            <button
-              onClick={toggleMenu}
-              className="
-                p-3 
-                rounded-xl 
-                bg-white/10 backdrop-blur-sm
-                border border-white/20
-                text-white
-                hover:bg-bright/20 hover:border-bright/30
-                transition-all duration-300
-              "
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col pt-28 pb-10 px-6 overflow-y-auto">
+          {/* Close Button */}
+          <button
+            onClick={toggleMenu}
+            className="
+              absolute top-6 right-6
+              p-3 
+              rounded-xl 
+              bg-white/10 backdrop-blur-sm
+              border border-white/20
+              text-white
+              hover:bg-bright/20 hover:border-bright/30
+              transition-all duration-300
+            "
+          >
+            <X className="w-5 h-5" />
+          </button>
 
-          {/* Mobile Nav Items - Premium Layout */}
+          {/* Mobile Navigation Links */}
           <div className="space-y-2 mb-8">
-            {navItems.map((item, index) => (
-              <div key={item.label} className="relative group">
+            {navItems.map((item) => (
+              <div key={item.label} className="relative">
                 {item.hasDropdown ? (
                   <>
                     <button
-                      data-services-button
-                      onClick={handleMobileServicesClick}
+                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
                       className="
                         w-full py-4 px-4
                         flex items-center justify-between
@@ -409,41 +394,24 @@ function Header() {
                         transition-all duration-300
                         rounded-xl
                         hover:bg-white/5
-                        group
+                        text-left
                       "
                     >
-                      <span className="flex items-center gap-3">
-                        {/* Dot indicator for hover - same as other items */}
-                        <div className="
-                          w-2 h-2 rounded-full 
-                          bg-gradient-to-r from-bright to-blue-500
-                          opacity-0 group-hover:opacity-100
-                          transition-opacity duration-300
-                        "></div>
-                        {item.label}
-                      </span>
+                      <span>{item.label}</span>
                       <ChevronDown className={`
                         w-5 h-5 transition-transform duration-300
-                        ${servicesOpen ? 'rotate-180 text-bright' : 'text-gray-400'}
+                        ${mobileServicesOpen ? 'rotate-180 text-bright' : 'text-gray-400'}
                       `} />
                     </button>
                     
-                    {/* Mobile Services Dropdown - Premium */}
-                    {servicesOpen && (
-                      <div 
-                        ref={mobileDropdownRef}
-                        className="
-                          pl-4 pr-2 py-4
-                          animate-slideDown
-                          border-l-2 border-bright/30
-                          ml-4
-                        "
-                      >
+                    {/* Mobile Services Dropdown */}
+                    {mobileServicesOpen && (
+                      <div className="pl-4 pr-2 py-4 border-l-2 border-bright/30 ml-4">
                         <div className="space-y-3">
-                          {servicesItems.map((service, serviceIndex) => (
-                            <a
-                              key={serviceIndex}
-                              href="#"
+                          {servicesItems.map((service, index) => (
+                            <Link
+                              key={index}
+                              to="/services"
                               className="
                                 block
                                 p-4
@@ -457,7 +425,7 @@ function Header() {
                                 group
                               "
                               onClick={() => {
-                                setServicesOpen(false);
+                                setMobileServicesOpen(false);
                                 setIsOpen(false);
                               }}
                             >
@@ -474,15 +442,15 @@ function Header() {
                                   </p>
                                 </div>
                               </div>
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       </div>
                     )}
                   </>
                 ) : (
-                  <a
-                    href={item.href}
+                  <Link
+                    to={item.href}
                     className="
                       block py-4 px-4
                       text-lg font-semibold text-white
@@ -490,73 +458,35 @@ function Header() {
                       transition-all duration-300
                       rounded-xl
                       hover:bg-white/5
-                      flex items-center gap-3
-                      group
                     "
                     onClick={toggleMenu}
                   >
-                    <div className="
-                      w-2 h-2 rounded-full 
-                      bg-gradient-to-r from-bright to-blue-500
-                      opacity-0 group-hover:opacity-100
-                      transition-opacity duration-300
-                    "></div>
                     {item.label}
-                  </a>
+                  </Link>
                 )}
               </div>
             ))}
           </div>
 
-          {/* Divider */}
-          <div className="h-px bg-gradient-to-r from-transparent via-gray-700 to-transparent my-6"></div>
-
-          {/* Premium Mobile CTA */}
-          <div className="mt-auto">
-            <div className="
-              bg-gradient-to-br from-gray-800/50 to-gray-900/50
-              backdrop-blur-xl
-              rounded-2xl p-6 
-              border border-white/10
-              shadow-2xl shadow-black/20
-            ">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 rounded-full bg-gradient-to-r from-bright/20 to-blue-500/20">
-                  <div className="w-5 h-5 flex items-center justify-center text-bright font-bold">+</div>
-                </div>
-                <h4 className="font-bold text-white text-lg">
-                  Transform Your Vision
-                </h4>
-              </div>
-              <p className="text-gray-300 text-sm mb-6 leading-relaxed">
-                Partner with experts to build exceptional digital experiences that drive results and exceed expectations.
-              </p>
-              <button 
-                onClick={toggleMenu}
-                className="
-                  w-full py-4
-                  bg-gradient-to-r from-bright to-blue-500
-                  text-white font-semibold rounded-xl
-                  hover:shadow-xl hover:scale-[1.02]
-                  active:scale-[0.98]
-                  transition-all duration-300
-                  shadow-lg
-                  flex items-center justify-center gap-2
-                "
-              >
-                <span>Start a Project</span>
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Contact Info in Mobile Menu */}
-          <div className="mt-8 text-center">
-            <div className="text-sm text-gray-400 space-y-2">
-              <p>Ready to discuss your project?</p>
-              <p className="text-white font-medium">info@sadevz.com</p>
-            </div>
-          </div>
+          {/* Mobile CTA Button */}
+          <Link 
+            to="/start-project"
+            onClick={toggleMenu}
+            className="
+              w-full py-4
+              bg-gradient-to-r from-bright to-blue-500
+              text-white font-semibold rounded-xl
+              hover:shadow-xl hover:scale-[1.02]
+              active:scale-[0.98]
+              transition-all duration-300
+              shadow-lg
+              flex items-center justify-center gap-2
+              mt-4
+            "
+          >
+            Start Project
+            <ChevronRight className="w-5 h-5" />
+          </Link>
         </div>
       </div>
 
@@ -572,23 +502,8 @@ function Header() {
             transform: translateY(0);
           }
         }
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            transform: translateY(-8px);
-            max-height: 0;
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-            max-height: 500px;
-          }
-        }
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out;
-        }
-        .animate-slideDown {
-          animation: slideDown 0.3s ease-out;
         }
       `}</style>
     </>

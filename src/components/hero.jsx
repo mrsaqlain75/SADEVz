@@ -258,7 +258,7 @@ export default function CinematicHero() {
                   className="mt-6"
                 >
                   <motion.a
-                    href="#contact"
+                    href="/start-project"
                     className="px-6 py-3 rounded-full font-semibold shadow-md inline-flex items-center gap-2"
                     whileHover={{ scale: 1.06 }}
                     whileTap={{ scale: 0.96 }}
@@ -268,7 +268,7 @@ export default function CinematicHero() {
                       boxShadow: `0 0 18px ${COLORS.bright}55`,
                     }}
                   >
-                    <span>Connect</span>
+                    <span>Start a Project</span>
                     <svg 
                       className="w-4 h-4" 
                       fill="none" 
