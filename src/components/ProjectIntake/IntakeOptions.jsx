@@ -1,114 +1,158 @@
+// IntakeOptions.js
 import React from 'react';
-import { Calendar, FileText, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { FileText, Calendar, ArrowRight, Clock, Users, MessageSquare } from 'lucide-react';
 
 const IntakeOptions = ({ onSelectOption }) => {
+  const options = [
+    {
+      id: 'form',
+      title: 'Project Form',
+      description: 'Fill out our detailed project intake form',
+      features: [
+        'Share project requirements',
+        'Upload reference files',
+        'Get detailed quote',
+        '24h response time'
+      ],
+      icon: <FileText className="w-8 h-8" />,
+      color: 'from-blue-600 to-cyan-500',
+      bgColor: 'bg-blue-50 dark:bg-blue-500/10',
+      borderColor: 'border-blue-200 dark:border-blue-500/20'
+    },
+    {
+      id: 'meeting',
+      title: 'Schedule Meeting',
+      description: 'Book a 30-min discovery call',
+      features: [
+        'Discuss project vision',
+        'Get expert advice',
+        'Receive ballpark estimate',
+        'Free consultation'
+      ],
+      icon: <Calendar className="w-8 h-8" />,
+      color: 'from-purple-600 to-pink-500',
+      bgColor: 'bg-purple-50 dark:bg-purple-500/10',
+      borderColor: 'border-purple-200 dark:border-purple-500/20'
+    }
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-28 pb-16 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Start Your Project With Us
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Choose how you'd like to begin your journey with Sadevz. 
-            Schedule a meeting for personalized consultation or fill out our detailed project form.
-          </p>
-        </div>
-
-        {/* Options Grid */}
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Option 1: Schedule Meeting */}
-          <div 
-            onClick={() => onSelectOption('meeting')}
-            className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-blue-500 cursor-pointer transform hover:-translate-y-1"
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-500 transition-colors duration-300">
-                <Calendar className="w-10 h-10 text-blue-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Schedule a Meeting
-              </h3>
-              
-              <p className="text-gray-600 mb-6">
-                Perfect if you prefer discussing your project face-to-face. 
-                We'll understand your vision and provide immediate feedback.
-              </p>
-              
-              <div className="space-y-4 text-left mb-6">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">30-minute free consultation</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Immediate Q&A session</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Personalized recommendations</span>
-                </div>
-              </div>
-              
-              <button className="w-full py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg font-semibold flex items-center justify-center group-hover:from-blue-600 group-hover:to-blue-700 transition-all duration-300">
-                Schedule Free Meeting
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Option 2: Fill Form */}
-          <div 
-            onClick={() => onSelectOption('form')}
-            className="group bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-200 hover:border-purple-500 cursor-pointer transform hover:-translate-y-1"
-          >
-            <div className="flex flex-col items-center text-center">
-              <div className="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-purple-500 transition-colors duration-300">
-                <FileText className="w-10 h-10 text-purple-600 group-hover:text-white transition-colors duration-300" />
-              </div>
-              
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">
-                Fill Project Details
-              </h3>
-              
-              <p className="text-gray-600 mb-6">
-                Provide detailed requirements and get a comprehensive proposal. 
-                Best for well-defined projects.
-              </p>
-              
-              <div className="space-y-4 text-left mb-6">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Detailed project analysis</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Comprehensive proposal</span>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-3"></div>
-                  <span className="text-gray-700">Accurate timeline & budget estimate</span>
-                </div>
-              </div>
-              
-              <button className="w-full py-3 px-6 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg font-semibold flex items-center justify-center group-hover:from-purple-600 group-hover:to-purple-700 transition-all duration-300">
-                Start Project Form
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Note */}
-        <div className="mt-12 text-center">
-          <p className="text-gray-500 text-sm">
-            Both options will be followed up within 24 hours. 
-            Your information is secure and will only be used for project discussions.
-          </p>
-        </div>
+    <div className="max-w-6xl mx-auto">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          How would you like to
+          <br />
+          <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+            get started?
+          </span>
+        </h2>
+        <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          Choose the option that works best for you. Both paths lead to the same goal — 
+          bringing your vision to life.
+        </p>
       </div>
+
+      {/* Options Grid */}
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid md:grid-cols-2 gap-8"
+      >
+        {options.map((option) => (
+          <motion.div
+            key={option.id}
+            variants={cardVariants}
+            whileHover={{ y: -8 }}
+            onClick={() => onSelectOption(option.id)}
+            className={`group cursor-pointer rounded-2xl overflow-hidden border-2 ${option.borderColor} bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300`}
+          >
+            {/* Card Header */}
+            <div className={`p-6 bg-gradient-to-r ${option.color} relative overflow-hidden`}>
+              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative z-10 flex items-start justify-between">
+                <div>
+                  <h3 className="text-2xl font-bold text-white mb-2">{option.title}</h3>
+                  <p className="text-white/80 text-sm">{option.description}</p>
+                </div>
+                <div className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                  {option.icon}
+                </div>
+              </div>
+              {/* Animated shine */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-white/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-500"></div>
+            </div>
+
+            {/* Card Body */}
+            <div className="p-6">
+              <div className="space-y-3 mb-6">
+                {option.features.map((feature, idx) => (
+                  <div key={idx} className="flex items-center gap-3">
+                    <div className="w-5 h-5 rounded-full bg-green-100 dark:bg-green-500/20 flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                    </div>
+                    <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className="w-full py-3 rounded-xl bg-gradient-to-r from-gray-100 to-gray-50 dark:from-gray-700 dark:to-gray-800 text-gray-700 dark:text-gray-300 font-semibold group-hover:from-bright group-hover:to-cyan-500 group-hover:text-white transition-all duration-300 flex items-center justify-center gap-2">
+                <span>Choose {option.title}</span>
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+
+      {/* Additional Info */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4 }}
+        className="mt-12 text-center"
+      >
+        <div className="inline-flex items-center gap-4 px-6 py-3 bg-white dark:bg-gray-800 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4 text-bright" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">30-min discovery call</span>
+          </div>
+          <div className="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+          <div className="flex items-center gap-2">
+            <MessageSquare className="w-4 h-4 text-bright" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">No obligation</span>
+          </div>
+          <div className="w-px h-4 bg-gray-300 dark:bg-gray-600"></div>
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-bright" />
+            <span className="text-sm text-gray-600 dark:text-gray-400">Expert consultation</span>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Trust Badge */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-8 text-center"
+      >
+      </motion.div>
     </div>
   );
 };

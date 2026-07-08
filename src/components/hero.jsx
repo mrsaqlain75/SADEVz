@@ -31,8 +31,8 @@ export default function CinematicHero() {
 
   const TEXT = [
     { title: "Learn", subtitle: "Everything begins here." },
-    { title: "Create", subtitle: "Turn understanding into skill." },
-    { title: "Evolve", subtitle: "Become limitless." },
+    { title: "Create", subtitle: "Turn understanding into real products." },
+    { title: "Evolve", subtitle: "Making something limitless." },
     { title: "SADEVZ", subtitle: "Learn • Create • Evolve" },
   ];
 
@@ -236,16 +236,16 @@ export default function CinematicHero() {
               {/* Description based on phase */}
               <div className="text-gray-400 text-sm md:text-base max-w-sm">
                 {phase === 0 && (
-                  <p>The foundation of growth starts with acquiring knowledge and building understanding from the ground up.</p>
+                  <p>The foundation of growth starts with  building understanding from the ground up of the problem.</p>
                 )}
                 {phase === 1 && (
-                  <p>Transform your knowledge into tangible skills, creating value through practical application and innovation.</p>
+                  <p>Transform this understanding into working product, creating valued components through performance-oriented and innovative solutions.</p>
                 )}
                 {phase === 2 && (
                   <p>Continuous adaptation and growth that pushes boundaries and redefines what's possible.</p>
                 )}
                 {phase === 3 && (
-                  <p>A complete cycle of growth where learning enables creation, and creation drives evolution in a continuous loop.</p>
+                  <p>A complete cycle of growth where understanding enables creation, and creation drives evolution in a continuous loop.</p>
                 )}
               </div>
 

@@ -1,80 +1,94 @@
 [
   {
     "id": 1,
+    "name": "Muhammad Munir Ul Islam",
+    "role": "CEO & Operations Lead",
+    "bio": "Man in front, one who represents the brand perfectly and has the capability to lead from the front, while taking care of many backround operations.",
+    "image": "/Images/team/munir.jpg",  
+    "skills": ["Node.js", "Tailwind", "Leadship"],
+    "social": {
+      "linkedin": "https://linkedin.com/in/mdmunir1918",
+      "instagram": "https://instagram.com/mmunirayubi511",
+      "facebook": "https://facebook.com/mdmunir1918",
+      "github": "https://github.com/mdmunir1918"
+    },
+    "funFact": "One who doesn't gets enough credit.",
+    "yearsOfExperience": 2
+  },
+    {
+    "id": 2,
     "name": "Saqlain Amin",
-    "role": "Founder & Lead Full Stack Developer",
-    "bio": "The person behind all of this, who founded SADEVZ when no one else thought about making such initiative, specially in a place like Pakistan.",
-    "image": "/Images/team/saqlain.png",
-    "skills": ["React", "Node.js", "Lecturer", "Python"],
+    "role": "Founder, Head of Engineering & Full Stack Developer",
+    "bio": "The person behind all of this, who founded SADEVZ when no one else thought about making such initiative, specially in a place like Chitral.",
+    "image": "/Images/team/saqlain.jpg",
+    "skills": ["MERN", "TS", "Kotlin", "Vercel", "Railway"],
     "social": {
       "linkedin": "https://linkedin.com/in/mrsaqlain75",
       "instagram": "https://instagram.com/saqlainsta",
-      "facebook": "https://facebook.com/fb.saqain.75",
+      "facebook": "https://facebook.com/fb.saqlain.75",
       "github": "https://github.com/mrsaqlain75"
     },
     "funFact": "Built his first app at 15",
     "yearsOfExperience": 8
   },
   {
-    "id": 2,
-    "name": "Laiha Nadeem",
-    "role": "UI/UX Designer & Creative Director",
-    "bio": "Design enthusiast with a keen eye for user experience. Expert in Figma, Adobe Illustrator/Photoshop Suite, and creating intuitive interfaces that convert.",
-    "image": "/Images/team/sarah.jpg",  
-    "skills": ["Figma", "UI/UX", "Adobe Suite", "Prototyping"],
-    "social": {
-      "linkedin": "https://linkedin.com/in/mrsaqlain75",
-      "instagram": "https://instagram.com/saqlainsta",
-      "facebook": "https://facebook.com/fb.saqain.75",
-      "github": "https://github.com/mrsaqlain75"
-    },
-    "funFact": "Not even an IT student",
-    "yearsOfExperience": 2
-  },
-  {
     "id": 3,
-    "name": "MD Munir ul Islam",
-    "role": "Frontend Developer & HR",
-    "bio": " Immence fan of design principles. Has shipped 10+ apps to both intra and international clients with 4.8+ average ratings.",
-    "image": "/Images/team/munirrr.png",  
-    "skills": ["Tailwind", "Python", "Communication Skills", "Adobe PS"],
+    "name": "Imtiaz Ali Shah",
+    "role": "Full Stack Developer",
+    "bio": "Builds scalable web applications using structured architecture and efficient backend systems. Focuses on translating complex requirements into maintainable, high-performance solutions. Prioritize clean code, system design, and real-world usability—delivering products that remain stable as they grow.",
+    "image": "/Images/team/imtiaz.jpg",  
+    "skills": ["Tailwind", "React", "Node.js", "Docker"],
     "social": {
-      "linkedin": "https://linkedin.com/in/marcusjohnson",
-      "github": "https://github.com/marcusjohnson",
-      "twitter": "https://twitter.com/marcusjohnson",
-      "website": "https://marcusjohnson.io"
+      "linkedin": "https://www.linkedin.com/in/imtiaz-ahmad-shah-02940a308?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+      "github": "https://github.com/imtiazahmadshah3offical",
+      "facebook": "https://www.facebook.com/imtiazahmad.shah.102"
     },
     "funFact": "Still a student",
-    "yearsOfExperience": 2
+    "yearsOfExperience": 1
   },
-  {
+    {
     "id": 4,
-    "name": "Haji Behram",
-    "role": "Digital Marketing & Growth Strategist",
-    "bio": "Growth hacker with expertise in SEO, SEM, and social media marketing. Helped scale 3 startups from 0 to 100K+ users.",
-    "image": "/Images/team/haji.jpg",  
-    "skills": ["SEO", "Google Ads", "Social Media", "Analytics"],
+    "name": "Sher Alim",
+    "role": "UI/UX Designer",
+    "bio": "Designs our UI from scratch with his creative approach. User-oriented user experience is his forte",
+    "image": "/Images/team/sher.jpg",  
+    "skills": ["Figma", "PS", "Canva"],
     "social": {
-      "linkedin": "https://linkedin.com/in/priyasharma",
-      "twitter": "https://twitter.com/priyasharma",
-      "website": "https://priyasharma.marketing"
+      "linkedin": "https://www.linkedin.com/in/sher-alim-1559082a9/",
+      "facebook": "https://www.facebook.com/share/1DgqYy5qFv/",
+      "instagram": "https://www.instagram.com/sher_alim6?igsh=MXRxMjZkY2t4M2RkOQ=="
     },
-    "funFact": "Only IT person who goes to gym",
+    "funFact": "One who points things out.",
     "yearsOfExperience": 2
   },
   {
     "id": 5,
-    "name": "Imtiaz Ahmad",
-    "role": "Backend Developer",
-    "bio": "God gifted talent of problem solving and logistics. Optimal solutions are his forte.",
-    "image": "/Images/team/imtiaz.jpg",  
-    "skills": ["Python", "Django", "JS", "PHP"],
+    "name": "Haji Behram",
+    "role": "Software Tester",
+    "bio": "Performs both functional and non-functional tests on our products, and our developers run from him.",
+    "image": "/Images/team/behram.jpg",  
+    "skills": ["Postman", "Cypress", "BrowserStack", "testRigor"],
     "social": {
-      "linkedin": "https://linkedin.com/in/priyasharma",
-      "twitter": "https://twitter.com/priyasharma",
-      "website": "https://priyasharma.marketing"
+      "linkedin": "https://pk.linkedin.com/in/haji-behram-3501832a1",
+      "instagram": "https://www.instagram.com/haji_behram?igsh=NGVibXdxeTMzbmdv",
+      "facebook": "https://www.facebook.com/hajibehram.hajibeham"
     },
-    "funFact": "Captain cool of the team",
+    "funFact": "Only IT person who goes to gym",
+    "yearsOfExperience": 1
+  },
+    {
+    "id": 6,
+    "name": "Muhammad Irfan",
+    "role": "Growth Associate & Software Deployer",
+    "bio": "The marketing guy, but is burdened with the evertiring job of deploying apps on web.",
+    "image": "/Images/team/irfan.jpg",  
+    "skills": ["Vercel", "Railway", "Aiven"],
+    "social": {
+      "github": "https://github.com/mirfan616",
+      "linkedin": "https://www.linkedin.com/in/muhammad-irfan-6535623b5",
+      "facebook": "https://www.facebook.com/muhammad.irfan.421194"
+    },
+    "funFact": "Genuinely likes his job;)",
     "yearsOfExperience": 2
   }
 ]

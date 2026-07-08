@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scanline — Image to Word</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF1F3;
+    --paper-raised:#FFFFFF;
+    --ink:#1B2027;
+    --ink-soft:#5C6470;
+    --line:#D7DCE1;
+    --accent:#2B4C7E;
+    --accent-soft:#E4EAF3;
+    --scan:#C77B3C;
+    --good:#237A57;
+    --warn:#B8862A;
+    --bad:#B4432E;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif;margin:0;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  header{padding:32px 24px 20px;border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .brand h1{font-size:28px;font-weight:600;letter-spacing:-0.01em;}
+  .brand .tag{font-size:12px;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:0.08em;}
+  main{max-width:1180px;margin:0 auto;padding:28px 24px 80px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:24px;}
+  @media (max-width:900px){ main{grid-template-columns:1fr;} }
+  .panel{background:var(--paper-raised);border:1px solid var(--line);border-radius:var(--radius);padding:20px;}
+  .panel + .panel{margin-top:20px;}
+  section.col{display:flex;flex-direction:column;}
+
+  /* Dropzone */
+  .dropzone{border:1.5px dashed var(--line);border-radius:var(--radius);padding:36px 20px;text-align:center;cursor:pointer;transition:border-color .15s, background .15s;position:relative;}
+  .dropzone.drag{border-color:var(--accent);background:var(--accent-soft);}
+  .dropzone h3{font-size:16px;font-weight:600;margin-bottom:6px;font-family:'IBM Plex Sans',sans-serif;}
+  .dropzone p{margin:0;color:var(--ink-soft);font-size:13px;}
+  .dropzone input{display:none;}
+
+  .preview-wrap{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;background:#0d0f12;}
+  .preview-wrap img{display:block;width:100%;height:auto;}
+  .overlay-box{position:absolute;border:1.5px solid; border-radius:2px;pointer-events:none;}
+  .scanbar{position:absolute;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--scan),transparent);box-shadow:0 0 12px 2px var(--scan);animation:sweep 1.6s linear infinite;}
+  @keyframes sweep{ 0%{top:0%;} 100%{top:100%;} }
+  @media (prefers-reduced-motion: reduce){ .scanbar{animation:none;display:none;} }
+
+  .filemeta{display:flex;gap:14px;font-size:12px;color:var(--ink-soft);margin-top:10px;font-family:'IBM Plex Mono',monospace;flex-wrap:wrap;}
+
+  /* Progress */
+  .progress-row{margin-top:16px;}
+  .progress-label{display:flex;justify-content:space-between;font-size:12px;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);margin-bottom:6px;}
+  .progress-track{height:6px;background:var(--accent-soft);border-radius:99px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--accent);width:0%;transition:width .2s ease;}
+
+  /* Buttons */
+  .btn{font-family:'IBM Plex Sans',sans-serif;font-size:13.5px;font-weight:600;border-radius:8px;padding:10px 16px;border:1px solid var(--line);background:var(--paper-raised);color:var(--ink);cursor:pointer;transition:all .12s;}
+  .btn:hover{border-color:var(--accent);}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btn-primary{background:var(--accent);border-color:var(--accent);color:#fff;}
+  .btn-primary:hover{background:#223f68;}
+  .btn-row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap;}
+
+  /* Settings */
+  .setting-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:13.5px;}
+  .setting-row:last-child{border-bottom:none;}
+  select{font-family:'IBM Plex Mono',monospace;font-size:12.5px;padding:6px 8px;border-radius:6px;border:1px solid var(--line);background:#fff;}
+  input[type="range"]{width:120px;}
+  .toggle{position:relative;width:38px;height:21px;background:var(--line);border-radius:99px;cursor:pointer;transition:background .15s;flex-shrink:0;}
+  .toggle.on{background:var(--accent);}
+  .toggle::after{content:'';position:absolute;top:2px;left:2px;width:17px;height:17px;background:#fff;border-radius:50%;transition:left .15s;}
+  .toggle.on::after{left:19px;}
+
+  h4.section-title{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;margin:0 0 8px;}
+
+  /* Results */
+  .block{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:10px;position:relative;}
+  .block-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:2px 7px;border-radius:99px;color:#fff;}
+  .badge.heading{background:var(--accent);}
+  .badge.paragraph{background:#6b7280;}
+  .badge.list{background:var(--warn);}
+  .badge.table{background:var(--good);}
+  .conf{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);}
+  .conf.low{color:var(--bad);font-weight:600;}
+  textarea.block-text{width:100%;border:none;background:transparent;font-family:inherit;font-size:14px;line-height:1.5;resize:vertical;min-height:36px;color:var(--ink);}
+  textarea.block-text:focus{outline:none;background:var(--accent-soft);border-radius:4px;}
+  table.docx-table{width:100%;border-collapse:collapse;font-size:13px;}
+  table.docx-table td{border:1px solid var(--line);padding:5px 7px;}
+  table.docx-table td[contenteditable]:focus{outline:2px solid var(--accent);outline-offset:-2px;}
+
+  .empty-state{text-align:center;padding:50px 20px;color:var(--ink-soft);}
+  .empty-state h3{font-size:16px;margin-bottom:6px;color:var(--ink);}
+  .empty-state p{font-size:13px;margin:0;}
+
+  .status-line{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:10px;}
+  .footnote{font-size:11.5px;color:var(--ink-soft);margin-top:18px;line-height:1.5;}
+  a.textlink{color:var(--accent);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>Scanline</h1>
+    <span class="tag">Image → editable Word document, entirely in your browser</span>
+  </div>
+</header>
+
+<main>
+  <!-- LEFT: Upload + Preview -->
+  <section class="col">
+    <div class="panel">
+      <h4 class="section-title">01 — Source image</h4>
+      <div class="dropzone" id="dropzone">
+        <input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/bmp,image/tiff" />
+        <h3>Drop an image here, or click to browse</h3>
+        <p>JPG, PNG, WebP, BMP, TIFF — up to 20MB</p>
+      </div>
+      <div class="filemeta" id="fileMeta" style="display:none;"></div>
+
+      <div class="preview-wrap" id="previewWrap" style="display:none;">
+        <img id="previewImg" />
+        <div id="overlayLayer"></div>
+        <div class="scanbar" id="scanbar" style="display:none;"></div>
+      </div>
+
+      <div class="progress-row" id="progressRow" style="display:none;">
+        <div class="progress-label"><span id="progressText">Working…</span><span id="progressPct">0%</span></div>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" id="processBtn" disabled>Convert to Word</button>
+        <button class="btn" id="resetBtn">Reset</button>
+      </div>
+      <div class="status-line" id="statusLine"></div>
+    </div>
+
+    <div class="panel">
+      <h4 class="section-title">Settings</h4>
+      <div class="setting-row">
+        <span>OCR language</span>
+        <select id="langSelect">
+          <option value="eng">English</option>
+          <option value="ara">Arabic</option>
+          <option value="urd">Urdu</option>
+          <option value="fra">French</option>
+          <option value="deu">German</option>
+          <option value="spa">Spanish</option>
+          <option value="por">Portuguese</option>
+          <option value="ita">Italian</option>
+          <option value="rus">Russian</option>
+          <option value="hin">Hindi</option>
+          <option value="chi_sim">Chinese (Simplified)</option>
+          <option value="jpn">Japanese</option>
+          <option value="tur">Turkish</option>
+          <option value="fas">Persian</option>
+          <option value="ben">Bengali</option>
+        </select>
+      </div>
+      <div class="setting-row"><span>Detect tables</span><div class="toggle on" data-setting="tables"></div></div>
+      <div class="setting-row"><span>Detect lists</span><div class="toggle on" data-setting="lists"></div></div>
+      <div class="setting-row"><span>Detect headings</span><div class="toggle on" data-setting="headings"></div></div>
+      <div class="setting-row"><span>Enhance image before OCR</span><div class="toggle on" data-setting="preprocess"></div></div>
+      <div class="setting-row">
+        <span>Confidence threshold</span>
+        <span><input type="range" id="confSlider" min="50" max="95" value="60" /> <span class="mono" id="confVal">60%</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Results -->
+  <section class="col">
+    <div class="panel" style="min-height:520px;">
+      <h4 class="section-title">02 — Extracted content</h4>
+      <div id="resultsArea">
+        <div class="empty-state">
+          <h3>Nothing here yet</h3>
+          <p>Upload an image and hit Convert to see detected text, headings, lists, and tables — all editable before download.</p>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row" id="downloadRow" style="display:none;">
+      <button class="btn btn-primary" id="downloadBtn">Download .docx</button>
+      <button class="btn" id="copyBtn">Copy text</button>
+    </div>
+    <p class="footnote">Everything runs locally in this tab — the image and extracted text never leave your browser. OCR accuracy depends on image clarity; scanned text at 200dpi+ with good contrast works best. Table detection is heuristic (column-alignment based) and works best on simple grids.</p>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script>
+(function(){
+  const state = {
+    file: null, imgURL: null, imgW:0, imgH:0,
+    settings: { tables:true, lists:true, headings:true, preprocess:true },
+    blocks: [], // detected content blocks
+  };
+
+  // ---------- Toggles ----------
+  document.querySelectorAll('.toggle').forEach(t=>{
+    t.addEventListener('click', ()=>{
+      t.classList.toggle('on');
+      state.settings[t.dataset.setting] = t.classList.contains('on');
+    });
+  });
+  const confSlider = document.getElementById('confSlider');
+  const confVal = document.getElementById('confVal');
+  confSlider.addEventListener('input', ()=> confVal.textContent = confSlider.value + '%');
+
+  // ---------- Upload ----------
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const fileMeta = document.getElementById('fileMeta');
+  const previewWrap = document.getElementById('previewWrap');
+  const previewImg = document.getElementById('previewImg');
+  const processBtn = document.getElementById('processBtn');
+  const statusLine = document.getElementById('statusLine');
+
+  dropzone.addEventListener('click', ()=> fileInput.click());
+  dropzone.addEventListener('dragover', e=>{e.preventDefault(); dropzone.classList.add('drag');});
+  dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e=>{
+    e.preventDefault(); dropzone.classList.remove('drag');
+    if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e=>{ if(e.target.files[0]) handleFile(e.target.files[0]); });
+
+  function handleFile(file){
+    const validTypes = ['image/jpeg','image/png','image/webp','image/bmp','image/tiff'];
+    if(!validTypes.includes(file.type)){
+      statusLine.textContent = 'Unsupported format. Please use JPG, PNG, WebP, BMP, or TIFF.';
+      return;
+    }
+    if(file.size > 20*1024*1024){
+      statusLine.textContent = 'File too large — max 20MB. Try a smaller or compressed image.';
+      return;
+    }
+    state.file = file;
+    const reader = new FileReader();
+    reader.onload = (e)=>{
+      state.imgURL = e.target.result; // data: URL — more sandbox-friendly than blob:
+      previewImg.onload = ()=>{
+        state.imgW = previewImg.naturalWidth;
+        state.imgH = previewImg.naturalHeight;
+      };
+      previewImg.onerror = ()=>{
+        statusLine.textContent = 'Could not preview this image — the file may be corrupted.';
+      };
+      previewImg.src = state.imgURL;
+      previewWrap.style.display = 'block';
+    };
+    reader.onerror = ()=>{
+      statusLine.textContent = 'Could not read this file. Try a different image.';
+    };
+    reader.readAsDataURL(file);
+    fileMeta.style.display = 'flex';
+    fileMeta.innerHTML = `<span>${file.name}</span><span>${(file.size/1024).toFixed(0)} KB</span>`;
+    processBtn.disabled = false;
+    statusLine.textContent = 'Ready to convert.';
+    clearResults();
+  }
+
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    state.file=null; state.blocks=[];
+    previewWrap.style.display='none'; fileMeta.style.display='none';
+    processBtn.disabled = true; statusLine.textContent='';
+    document.getElementById('overlayLayer').innerHTML='';
+    document.getElementById('progressRow').style.display='none';
+    document.getElementById('downloadRow').style.display='none';
+    clearResults();
+  });
+
+  function clearResults(){
+    document.getElementById('resultsArea').innerHTML = `<div class="empty-state"><h3>Nothing here yet</h3><p>Upload an image and hit Convert to see detected text, headings, lists, and tables — all editable before download.</p></div>`;
+  }
+
+  // ---------- Progress ----------
+  const progressRow = document.getElementById('progressRow');
+  const progressFill = document.getElementById('progressFill');
+  const progressText = document.getElementById('progressText');
+  const progressPct = document.getElementById('progressPct');
+  const scanbar = document.getElementById('scanbar');
+
+  function setProgress(pct, label){
+    progressRow.style.display='block';
+    progressFill.style.width = pct+'%';
+    progressPct.textContent = Math.round(pct)+'%';
+    if(label) progressText.textContent = label;
+  }
+
+  // ---------- Image preprocessing ----------
+  function preprocessImage(file){
+    return new Promise((resolve, reject)=>{
+      const timeout = setTimeout(()=> reject(new Error('Image loading timed out.')), 15000);
+      const reader = new FileReader();
+      reader.onerror = ()=>{ clearTimeout(timeout); reject(new Error('Could not read the image file.')); };
+      reader.onload = (e)=>{
+        const img = new Image();
+        img.onerror = ()=>{ clearTimeout(timeout); reject(new Error('Could not decode this image.')); };
+        img.onload = ()=>{
+          clearTimeout(timeout);
+          let w = img.naturalWidth, h = img.naturalHeight;
+          const maxDim = 2000;
+          if(Math.max(w,h) > maxDim){
+            const scale = maxDim/Math.max(w,h);
+            w = Math.round(w*scale); h = Math.round(h*scale);
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = w; canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, w, h);
+          if(state.settings.preprocess){
+            const imageData = ctx.getImageData(0,0,w,h);
+            const d = imageData.data;
+            const contrast = 1.15;
+            for(let i=0;i<d.length;i+=4){
+              const gray = 0.299*d[i] + 0.587*d[i+1] + 0.114*d[i+2];
+              let v = (gray - 128)*contrast + 128;
+              v = Math.max(0, Math.min(255, v));
+              d[i]=d[i+1]=d[i+2]=v;
+            }
+            ctx.putImageData(imageData,0,0);
+          }
+          // Use a data URL rather than canvas.toBlob — more reliable in sandboxed viewers
+          const dataUrl = canvas.toDataURL('image/png');
+          resolve({ dataUrl, w, h });
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // ---------- OCR + layout detection ----------
+  function withTimeout(promise, ms, label){
+    return Promise.race([
+      promise,
+      new Promise((_,reject)=> setTimeout(()=> reject(new Error(label+' timed out after '+(ms/1000)+'s. This usually means the OCR engine could not be reached — try opening this file directly in your browser instead of a preview window.')), ms))
+    ]);
+  }
+
+  async function runOCR(){
+    if(typeof Tesseract === 'undefined'){
+      throw new Error('The OCR engine failed to load from the CDN. If you are viewing this inside a chat preview, download the file and open it directly in your browser (double-click it) instead.');
+    }
+    setProgress(2, 'Preprocessing image…');
+    const {dataUrl, w, h} = await withTimeout(preprocessImage(state.file), 15000, 'Image preprocessing');
+    scanbar.style.display='block';
+
+    setProgress(15, 'Loading OCR engine…');
+    const lang = document.getElementById('langSelect').value;
+    const worker = await withTimeout(Tesseract.createWorker(lang, 1, {
+      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js',
+      corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js',
+      langPath: 'https://tessdata.projectnaptha.com/4.0.0',
+      workerBlobURL: false,
+      logger: m=>{
+        if(m.status === 'recognizing text'){
+          setProgress(35 + m.progress*45, 'Extracting text…');
+        } else if(m.status){
+          setProgress(20, m.status.replace(/_/g,' '));
+        }
+      }
+    }), 45000, 'Loading the OCR engine');
+
+    setProgress(35, 'Detecting layout & extracting text…');
+    const { data } = await withTimeout(worker.recognize(dataUrl, {}, { blocks: true }), 90000, 'Text extraction');
+    await worker.terminate();
+    scanbar.style.display='none';
+
+    setProgress(85, 'Building document structure…');
+    const blocks = buildBlocks(data, w, h);
+    setProgress(100, 'Done');
+    setTimeout(()=> progressRow.style.display='none', 800);
+    return blocks;
+  }
+
+  function buildBlocks(data, imgW, imgH){
+    const threshold = parseInt(confSlider.value,10);
+    const rawLines = [];
+    (data.blocks || []).forEach(block=>{
+      (block.paragraphs || []).forEach(par=>{
+        (par.lines || []).forEach(line=>{
+          const words = (line.words||[]).map(w=>({text:w.text, conf:w.confidence, bbox:w.bbox}));
+          if(words.length===0) return;
+          const lineText = words.map(w=>w.text).join(' ');
+          const confs = words.map(w=>w.conf);
+          const avgConf = confs.reduce((a,b)=>a+b,0)/confs.length;
+          const height = line.bbox.y1 - line.bbox.y0;
+          rawLines.push({text:lineText, bbox:line.bbox, height, avgConf, words});
+        });
+      });
+    });
+
+    if(rawLines.length===0) return [];
+
+    // group lines into paragraph blocks by vertical gap
+    const heights = rawLines.map(l=>l.height).sort((a,b)=>a-b);
+    const medianHeight = heights[Math.floor(heights.length/2)] || 16;
+    const groups = [];
+    let current = [rawLines[0]];
+    for(let i=1;i<rawLines.length;i++){
+      const prev = rawLines[i-1], cur = rawLines[i];
+      const gap = cur.bbox.y0 - prev.bbox.y1;
+      if(gap > medianHeight*1.1){
+        groups.push(current); current=[cur];
+      } else current.push(cur);
+    }
+    groups.push(current);
+
+    const blocks = [];
+    groups.forEach(group=>{
+      const groupConf = group.reduce((a,l)=>a+l.avgConf,0)/group.length;
+      const avgHeight = group.reduce((a,l)=>a+l.height,0)/group.length;
+      const isHeadingSize = avgHeight > medianHeight*1.35;
+      const bulletRe = /^\s*[•\-\*\u2022\u25CF\u25E6·]\s+/;
+      const numberedRe = /^\s*(\d+[\.\)]|\([a-zA-Z0-9]+\)|[a-zA-Z][\.\)])\s+/;
+      const listLines = group.filter(l=> bulletRe.test(l.text) || numberedRe.test(l.text));
+
+      if(state.settings.lists && listLines.length >= Math.max(2, group.length*0.6)){
+        const ordered = numberedRe.test(group[0].text);
+        blocks.push({
+          type:'list', ordered,
+          items: group.map(l=> l.text.replace(bulletRe,'').replace(numberedRe,'').trim()),
+          conf: groupConf, lines: group
+        });
+        return;
+      }
+
+      if(state.settings.tables && group.length>=2 && isTableLike(group)){
+        blocks.push({ type:'table', rows: splitIntoColumns(group), conf: groupConf, lines: group });
+        return;
+      }
+
+      if(state.settings.headings && isHeadingSize && group.length<=2){
+        blocks.push({ type:'heading', level: avgHeight > medianHeight*1.8 ? 1 : 2, text: group.map(l=>l.text).join(' '), conf: groupConf, lines: group });
+        return;
+      }
+
+      blocks.push({ type:'paragraph', text: group.map(l=>l.text).join(' '), conf: groupConf, lines: group });
+    });
+
+    return blocks.map(b=>({...b, lowConf: b.conf < threshold}));
+  }
+
+  function isTableLike(group){
+    // Heuristic: each line has >=2 large internal gaps between words, at roughly consistent x positions
+    const columnSets = group.map(line=>{
+      const gaps = [];
+      for(let i=1;i<line.words.length;i++){
+        const prevW = line.words[i-1], curW = line.words[i];
+        const gap = curW.bbox.x0 - prevW.bbox.x1;
+        gaps.push({x: curW.bbox.x0, gap});
+      }
+      const avgGap = gaps.length ? gaps.reduce((a,g)=>a+g.gap,0)/gaps.length : 0;
+      return gaps.filter(g=> g.gap > avgGap*2 && g.gap > 15).map(g=>g.x);
+    });
+    const withCols = columnSets.filter(c=>c.length>0);
+    return withCols.length >= Math.max(2, group.length*0.5);
+  }
+
+  function splitIntoColumns(group){
+    // collect candidate split x-positions across lines, cluster them, then split each line's words by nearest boundary
+    let splitXs = [];
+    group.forEach(line=>{
+      for(let i=1;i<line.words.length;i++){
+        const prevW = line.words[i-1], curW = line.words[i];
+        const gap = curW.bbox.x0 - prevW.bbox.x1;
+        if(gap > 20) splitXs.push((prevW.bbox.x1+curW.bbox.x0)/2);
+      }
+    });
+    splitXs.sort((a,b)=>a-b);
+    const clustered = [];
+    splitXs.forEach(x=>{
+      if(clustered.length===0 || x - clustered[clustered.length-1] > 30) clustered.push(x);
+    });
+    return group.map(line=>{
+      const cells = new Array(clustered.length+1).fill('').map(()=>[]);
+      line.words.forEach(w=>{
+        const cx = (w.bbox.x0+w.bbox.x1)/2;
+        let idx = clustered.findIndex(sx=> cx < sx);
+        if(idx===-1) idx = clustered.length;
+        cells[idx].push(w.text);
+      });
+      return cells.map(c=>c.join(' ').trim());
+    });
+  }
+
+  // ---------- Rendering results ----------
+  const resultsArea = document.getElementById('resultsArea');
+  function renderBlocks(blocks){
+    state.blocks = blocks;
+    if(blocks.length===0){
+      resultsArea.innerHTML = `<div class="empty-state"><h3>No text detected</h3><p>Try adjusting the confidence threshold or use a clearer, higher-resolution image.</p></div>`;
+      document.getElementById('downloadRow').style.display='none';
+      return;
+    }
+    resultsArea.innerHTML = '';
+    blocks.forEach((b,idx)=>{
+      const wrap = document.createElement('div');
+      wrap.className = 'block';
+      const confPct = Math.round(b.conf);
+      const confClass = confPct < parseInt(confSlider.value,10) ? 'low' : '';
+      let bodyHtml = '';
+      if(b.type==='paragraph' || b.type==='heading'){
+        bodyHtml = `<textarea class="block-text" data-idx="${idx}" data-field="text">${escapeHtml(b.text)}</textarea>`;
+      } else if(b.type==='list'){
+        bodyHtml = `<textarea class="block-text" data-idx="${idx}" data-field="items" rows="${b.items.length}">${escapeHtml(b.items.join('\n'))}</textarea>`;
+      } else if(b.type==='table'){
+        bodyHtml = renderTableEditable(b, idx);
+      }
+      wrap.innerHTML = `
+        <div class="block-head">
+          <span class="badge ${b.type}">${b.type}${b.type==='heading' ? ' H'+b.level : ''}</span>
+          <span class="conf ${confClass}">${confPct}% confidence</span>
+        </div>
+        ${bodyHtml}`;
+      resultsArea.appendChild(wrap);
+    });
+
+    resultsArea.querySelectorAll('textarea.block-text').forEach(t=>{
+      t.addEventListener('input', ()=>{
+        const idx = parseInt(t.dataset.idx,10);
+        const field = t.dataset.field;
+        if(field==='text') state.blocks[idx].text = t.value;
+        if(field==='items') state.blocks[idx].items = t.value.split('\n').filter(x=>x.length);
+      });
+    });
+    resultsArea.querySelectorAll('td[contenteditable]').forEach(td=>{
+      td.addEventListener('input', ()=>{
+        const idx = parseInt(td.dataset.idx,10), r = parseInt(td.dataset.r,10), c = parseInt(td.dataset.c,10);
+        state.blocks[idx].rows[r][c] = td.textContent;
+      });
+    });
+
+    document.getElementById('downloadRow').style.display='flex';
+    renderOverlays(blocks);
+  }
+
+  function renderTableEditable(b, idx){
+    let html = '<table class="docx-table">';
+    b.rows.forEach((row,r)=>{
+      html += '<tr>';
+      row.forEach((cell,c)=>{
+        html += `<td contenteditable="true" data-idx="${idx}" data-r="${r}" data-c="${c}">${escapeHtml(cell)}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</table>';
+    return html;
+  }
+
+  function escapeHtml(s){
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function renderOverlays(blocks){
+    const layer = document.getElementById('overlayLayer');
+    layer.innerHTML = '';
+    const colors = { heading:'#2B4C7E', paragraph:'#6b7280', list:'#B8862A', table:'#237A57' };
+    const imgRect = previewImg.getBoundingClientRect();
+    const scaleX = previewImg.clientWidth / state.imgW;
+    const scaleY = previewImg.clientHeight / state.imgH;
+    blocks.forEach(b=>{
+      b.lines.forEach(line=>{
+        const box = document.createElement('div');
+        box.className = 'overlay-box';
+        const color = b.lowConf ? '#B4432E' : colors[b.type];
+        box.style.borderColor = color;
+        box.style.left = (line.bbox.x0*scaleX)+'px';
+        box.style.top = (line.bbox.y0*scaleY)+'px';
+        box.style.width = ((line.bbox.x1-line.bbox.x0)*scaleX)+'px';
+        box.style.height = ((line.bbox.y1-line.bbox.y0)*scaleY)+'px';
+        layer.appendChild(box);
+      });
+    });
+  }
+
+  // ---------- Process button ----------
+  processBtn.addEventListener('click', async ()=>{
+    processBtn.disabled = true;
+    statusLine.textContent = 'Processing…';
+    try{
+      const blocks = await runOCR();
+      renderBlocks(blocks);
+      statusLine.textContent = blocks.length ? 'Extraction complete — review and edit before downloading.' : 'No text detected.';
+    }catch(err){
+      console.error(err);
+      const isWorkerSandboxError = /construct 'Worker'/i.test(err.message) || /cannot be accessed from origin/i.test(err.message);
+      if(isWorkerSandboxError){
+        statusLine.innerHTML = `This preview's security sandbox blocks the OCR engine from starting (it won't allow loading a background worker script). This isn't fixable from inside the app — <strong>save this HTML file and open it directly in a browser tab</strong> (double-click it, or drag it into Chrome/Edge/Firefox) instead of using this embedded preview. It will run normally there.`;
+      } else {
+        statusLine.textContent = 'Something went wrong during processing: ' + err.message;
+      }
+      scanbar.style.display='none';
+    }
+    processBtn.disabled = false;
+  });
+
+  // ---------- DOCX generation ----------
+  function xmlEscape(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function paragraphXml(text, opts={}){
+    const pPr = [];
+    if(opts.style) pPr.push(`<w:pStyle w:val="${opts.style}"/>`);
+    if(opts.numId) pPr.push(`<w:numPr><w:ilvl w:val="0"/><w:numId w:val="${opts.numId}"/></w:numPr>`);
+    const pPrXml = pPr.length ? `<w:pPr>${pPr.join('')}</w:pPr>` : '';
+    const runProps = opts.bold ? '<w:rPr><w:b/></w:rPr>' : '';
+    return `<w:p>${pPrXml}<w:r>${runProps}<w:t xml:space="preserve">${xmlEscape(text)}</w:t></w:r></w:p>`;
+  }
+
+  function tableXml(rows){
+    const borders = `<w:tblBorders>
+      <w:top w:val="single" w:sz="4" w:color="999999"/>
+      <w:left w:val="single" w:sz="4" w:color="999999"/>
+      <w:bottom w:val="single" w:sz="4" w:color="999999"/>
+      <w:right w:val="single" w:sz="4" w:color="999999"/>
+      <w:insideH w:val="single" w:sz="4" w:color="999999"/>
+      <w:insideV w:val="single" w:sz="4" w:color="999999"/>
+    </w:tblBorders>`;
+    const cols = rows[0] ? rows[0].length : 1;
+    const gridXml = `<w:tblGrid>${Array(cols).fill('<w:gridCol w:w="2500"/>').join('')}</w:tblGrid>`;
+    const rowsXml = rows.map(row=>{
+      const cellsXml = row.map(cell=>
+        `<w:tc><w:tcPr><w:tcW w:w="2500" w:type="dxa"/></w:tcPr><w:p><w:r><w:t xml:space="preserve">${xmlEscape(cell)}</w:t></w:r></w:p></w:tc>`
+      ).join('');
+      return `<w:tr>${cellsXml}</w:tr>`;
+    }).join('');
+    return `<w:tbl><w:tblPr><w:tblW w:w="0" w:type="auto"/>${borders}</w:tblPr>${gridXml}${rowsXml}</w:tbl>`;
+  }
+
+  function buildDocumentXml(blocks){
+    let body = '';
+    blocks.forEach(b=>{
+      if(b.type==='heading'){
+        body += paragraphXml(b.text, {style: 'Heading'+(b.level||2)});
+      } else if(b.type==='paragraph'){
+        body += paragraphXml(b.text);
+      } else if(b.type==='list'){
+        const numId = b.ordered ? 2 : 1;
+        b.items.forEach(item=> body += paragraphXml(item, {style:'ListParagraph', numId}));
+      } else if(b.type==='table'){
+        body += tableXml(b.rows);
+        body += paragraphXml('');
+      }
+    });
+    const sectPr = `<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440" w:header="720" w:footer="720" w:gutter="0"/></w:sectPr>`;
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<w:body>${body}${sectPr}</w:body>
+</w:document>`;
+  }
+
+  const STYLES_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:sz w:val="22"/></w:rPr></w:rPrDefault></w:docDefaults>
+  <w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:pPr><w:spacing w:after="160" w:line="276" w:lineRule="auto"/></w:pPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:basedOn w:val="Normal"/><w:pPr><w:spacing w:before="240" w:after="120"/></w:pPr><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:color w:val="2B4C7E"/><w:sz w:val="32"/></w:rPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Heading2"><w:name w:val="heading 2"/><w:basedOn w:val="Normal"/><w:pPr><w:spacing w:before="200" w:after="100"/></w:pPr><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:color w:val="2B4C7E"/><w:sz w:val="27"/></w:rPr></w:style>
+  <w:style w:type="paragraph" w:styleId="Heading3"><w:name w:val="heading 3"/><w:basedOn w:val="Normal"/><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/><w:b/><w:sz w:val="24"/></w:rPr></w:style>
+  <w:style w:type="paragraph" w:styleId="ListParagraph"><w:name w:val="List Paragraph"/><w:basedOn w:val="Normal"/></w:style>
+</w:styles>`;
+
+  const NUMBERING_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:numbering xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+  <w:abstractNum w:abstractNumId="0">
+    <w:lvl w:ilvl="0"><w:start w:val="1"/><w:numFmt w:val="bullet"/><w:lvlText w:val="&#9679;"/><w:pPr><w:ind w:left="720" w:hanging="360"/></w:pPr><w:rPr><w:rFonts w:ascii="Symbol" w:hAnsi="Symbol" w:hint="default"/></w:rPr></w:lvl>
+  </w:abstractNum>
+  <w:abstractNum w:abstractNumId="1">
+    <w:lvl w:ilvl="0"><w:start w:val="1"/><w:numFmt w:val="decimal"/><w:lvlText w:val="%1."/><w:pPr><w:ind w:left="720" w:hanging="360"/></w:pPr></w:lvl>
+  </w:abstractNum>
+  <w:num w:numId="1"><w:abstractNumId w:val="0"/></w:num>
+  <w:num w:numId="2"><w:abstractNumId w:val="1"/></w:num>
+</w:numbering>`;
+
+  const CONTENT_TYPES = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+  <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+  <Default Extension="xml" ContentType="application/xml"/>
+  <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+  <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
+  <Override PartName="/word/numbering.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml"/>
+  <Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>
+  <Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>
+</Types>`;
+
+  const RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>
+  <Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>
+</Relationships>`;
+
+  const DOC_RELS = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+  <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering" Target="numbering.xml"/>
+</Relationships>`;
+
+  function coreXml(){
+    const now = new Date().toISOString();
+    return `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <dc:creator>Scanline — Image to Word</dc:creator>
+  <dcterms:created xsi:type="dcterms:W3CDTF">${now}</dcterms:created>
+  <dcterms:modified xsi:type="dcterms:W3CDTF">${now}</dcterms:modified>
+</cp:coreProperties>`;
+  }
+
+  const APP_XML = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"><Application>Scanline</Application></Properties>`;
+
+  async function generateDocx(blocks){
+    const zip = new JSZip();
+    zip.file('[Content_Types].xml', CONTENT_TYPES);
+    zip.folder('_rels').file('.rels', RELS);
+    zip.folder('docProps').file('core.xml', coreXml());
+    zip.folder('docProps').file('app.xml', APP_XML);
+    const wordFolder = zip.folder('word');
+    wordFolder.file('document.xml', buildDocumentXml(blocks));
+    wordFolder.file('styles.xml', STYLES_XML);
+    wordFolder.file('numbering.xml', NUMBERING_XML);
+    wordFolder.folder('_rels').file('document.xml.rels', DOC_RELS);
+    return zip.generateAsync({type:'blob', mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+  }
+
+  document.getElementById('downloadBtn').addEventListener('click', async ()=>{
+    if(state.blocks.length===0) return;
+    try{
+      const blob = await generateDocx(state.blocks);
+      const reader = new FileReader();
+      reader.onload = ()=>{
+        const a = document.createElement('a');
+        a.href = reader.result; // data: URL — works even where blob: URLs are sandboxed
+        a.download = (state.file ? state.file.name.replace(/\.[^.]+$/,'') : 'document') + '.docx';
+        document.body.appendChild(a); a.click(); a.remove();
+      };
+      reader.onerror = ()=>{ statusLine.textContent = 'Could not prepare the file for download.'; };
+      reader.readAsDataURL(blob);
+    }catch(err){
+      statusLine.textContent = 'Download failed: ' + err.message;
+    }
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', ()=>{
+    const text = state.blocks.map(b=>{
+      if(b.type==='list') return b.items.map(i=>'• '+i).join('\n');
+      if(b.type==='table') return b.rows.map(r=>r.join('\t')).join('\n');
+      return b.text;
+    }).join('\n\n');
+    navigator.clipboard.writeText(text).then(()=>{
+      statusLine.textContent = 'Copied to clipboard.';
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

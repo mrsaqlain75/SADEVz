@@ -8,7 +8,7 @@ import WhoWeAre from "./components/WhoWeAre";
 import ServicesSection from "./components/ServicesSection";
 import TechnologyCarousel from "./components/TechnologyCarousel";
 import WorkflowSection from "./components/WorkflowSection";
-import PortfolioSection from "./components/PortfolioSection";
+import PortfolioGallery from "./components/PortfolioGallery";
 import ClientLogos from "./components/ClientLogos";
 import TeamSection from "./components/TeamSection";
 import ServicesPage from "./pages/ServicesPage";
@@ -48,7 +48,7 @@ const HomePage = () => (
     <ServicesSection />
     <TechnologyCarousel />
     <WorkflowSection />
-    <PortfolioSection />
+    <PortfolioGallery />
     <ClientLogos />
     <TeamSection />
   </>

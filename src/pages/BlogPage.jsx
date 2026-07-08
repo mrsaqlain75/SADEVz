@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
-import { Clock, Eye, User } from 'lucide-react';
+import { Clock, Eye, User, Code, ArrowRight } from 'lucide-react';
 import articleAPI from '../services/articleAPI';
+import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';  // Import Helmet
 
 // Reading time calculator
@@ -133,8 +134,8 @@ const BlogPage = () => {
       <div className="relative z-10">
         {/* Header Section */}
         <section className="max-w-7xl mx-auto px-4 mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4">
-            The <span className="text-[#00bcd4]">SADEVZ</span> Blog
+          <h1 className="text-5xl md:text-6xl text-gray-900 dark:text-white mb-4">
+            The <span className="text-[#00bcd4] font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">SADEVZ</span> Blog
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
             Insights, tutorials, and stories from our team about web development, design, and technology.
@@ -212,8 +213,54 @@ const BlogPage = () => {
             </div>
           )}
         </section>
+
+          {/* CTA */}
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ delay: 0.6 }}
+  viewport={{ once: true }}
+  className="pb-12 text-center"
+>
+  <div className="inline-flex flex-col sm:flex-row items-center gap-6 px-8 py-6 bg-black/90 backdrop-blur-sm rounded-2xl border border-bright/30 shadow-2xl relative overflow-hidden">
+    {/* Animated background lines */}
+    <div className="absolute inset-0 bg-gradient-to-r from-bright/5 via-transparent to-cyan-500/5 animate-pulse"></div>
+    <div className="absolute -inset-1 bg-gradient-to-r from-bright via-cyan-500 to-bright opacity-20 blur-2xl group-hover:opacity-40 transition-opacity"></div>
+    
+    <div className="flex items-center gap-3 relative z-10">
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-bright to-cyan-500 flex items-center justify-center relative">
+        <Code className="w-6 h-6 text-white" />
+        <div className="absolute inset-0 rounded-full bg-bright animate-ping opacity-75"></div>
+      </div>
+      <div className="text-left">
+        <h4 className="font-bold text-white tracking-tight">Ready to work with us?</h4>
+        <p className="text-sm text-gray-400">Let's build something amazing together</p>
       </div>
     </div>
+    <Link to="/start-project" className="relative z-10">
+      <button className="group relative px-8 py-3 bg-gradient-to-r from-bright to-cyan-500 text-white font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-bright/50 hover:scale-105">
+        {/* Glitch layers */}
+        <span className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-bright opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+        <span className="absolute inset-0 bg-bright transform translate-x-full group-hover:translate-x-0 transition-transform duration-500"></span>
+        <span className="relative z-10 flex items-center gap-2">
+          Start a Project
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-all duration-300" />
+        </span>
+        {/* Glitch text effect on hover */}
+        <span className="absolute inset-0 flex items-center justify-center text-white opacity-0 group-hover:opacity-20 group-hover:animate-pulse">
+          START A PROJECT
+        </span>
+      </button>
+    </Link>
+  </div>
+</motion.div>
+
+
+      </div>
+    </div>
+    
+
+
     </>
   );
 };
