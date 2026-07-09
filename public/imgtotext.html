@@ -350,17 +350,35 @@
     if(typeof Tesseract === 'undefined'){
       throw new Error('The OCR engine failed to load from the CDN. If you are viewing this inside a chat preview, download the file and open it directly in your browser (double-click it) instead.');
     }
+    if(location.protocol === 'file:'){
+      throw new Error("This page was opened directly as a file (file://), which Chrome/Edge block from loading the OCR worker. Serve it over http instead: open a terminal in this file's folder and run 'python -m http.server 8000' (or 'npx serve'), then visit http://localhost:8000/ in your browser.");
+    }
     setProgress(2, 'Preprocessing image…');
     const {dataUrl, w, h} = await withTimeout(preprocessImage(state.file), 15000, 'Image preprocessing');
     scanbar.style.display='block';
 
     setProgress(15, 'Loading OCR engine…');
     const lang = document.getElementById('langSelect').value;
+
+    // Tesseract.js 5.1.1 is inconsistent about wrapping its worker script in a
+    // same-origin blob URL (a browser requirement for cross-origin workers).
+    // We do that wrapping ourselves to guarantee it happens correctly.
+    const workerScriptUrl = 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js';
+    let workerBlobUrl;
+    try{
+      const resp = await withTimeout(fetch(workerScriptUrl), 20000, 'Fetching OCR worker script');
+      if(!resp.ok) throw new Error('Server returned ' + resp.status);
+      const code = await resp.text();
+      workerBlobUrl = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
+    }catch(fetchErr){
+      throw new Error('Could not download the OCR worker script (' + fetchErr.message + '). Check your internet connection, or that your dev server / browser isn\'t blocking requests to cdn.jsdelivr.net.');
+    }
+
     const worker = await withTimeout(Tesseract.createWorker(lang, 1, {
-      workerPath: 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/worker.min.js',
+      workerPath: workerBlobUrl,
+      workerBlobURL: false,
       corePath: 'https://cdn.jsdelivr.net/npm/tesseract.js-core@5.1.1/tesseract-core-simd-lstm.wasm.js',
       langPath: 'https://tessdata.projectnaptha.com/4.0.0',
-      workerBlobURL: false,
       logger: m=>{
         if(m.status === 'recognizing text'){
           setProgress(35 + m.progress*45, 'Extracting text…');
